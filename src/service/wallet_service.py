@@ -1,7 +1,8 @@
 from src.dao.wallet_dao import walletDao
 from src.utils.Properties import pro
 from src.utils.date_utils import DateUtils
-from src.utils.decode_hex import decode
+from src.utils.decode_hex import Decode_hex
+
 from src.utils.wallet_account import Wallet
 
 
@@ -23,8 +24,8 @@ class WalletService:
         rs = walletDao.query_batch(batch_name)
 
         for dic in rs:
-            dic['wallet_key'] = decode.decode_aes(key, dic['wallet_key'])
-            dic['mnemonic'] = decode.decode_aes(key, dic['mnemonic'])
+            dic['wallet_key'] = Decode_hex.decode_aes(key, dic['wallet_key'])
+            dic['mnemonic'] = Decode_hex.decode_aes(key, dic['mnemonic'])
 
         return rs
 
@@ -42,11 +43,11 @@ class WalletService:
             wallet_address = line[0]
             wallet_key = line[1]
             if encode_flag:
-                wallet_key = decode.encode_aes(key, line[1])
+                wallet_key = Decode_hex.encode_aes(key, line[1])
 
             mnemonic = line[2]
             if encode_flag:
-                mnemonic = decode.encode_aes(key, line[2])
+                mnemonic = Decode_hex.encode_aes(key, line[2])
             seq_num = num
             create_date = ts
             records.append((wallet_address, wallet_key, mnemonic, batch_name, seq_num, create_date, ''))

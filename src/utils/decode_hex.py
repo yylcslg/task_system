@@ -4,13 +4,15 @@ from Crypto.Cipher import AES
 
 
 class Decode_hex:
-    def to_int(self, code:str, move_prefix=True):
+    @staticmethod
+    def to_int(code:str, move_prefix=True):
         if move_prefix:
             return int(code[2:], 16)
         else:
             return int(code, 16)
 
-    def zfill(self, msg, pre_fix ='0x', len = 64):
+    @staticmethod
+    def zfill(msg, pre_fix ='0x', len = 64):
         if msg.startswith('0x'):
             msg = msg[2:].zfill(64)
         else:
@@ -18,22 +20,23 @@ class Decode_hex:
         return msg
 
 
-    def encode_aes(self, key:str, data:str, base64_flag = True):
+    @staticmethod
+    def encode_aes(key:str, data:str, base64_flag = True):
         # 待加密文本
         # 初始化加密器
-        aes = AES.new(self.add_to_16(key), AES.MODE_ECB)
+        aes = AES.new(Decode_hex.add_to_16(key), AES.MODE_ECB)
         # 先进行aes加密
-        encrypt_data = aes.encrypt(self.add_to_16(data))
+        encrypt_data = aes.encrypt(Decode_hex.add_to_16(data))
         if base64_flag:
             # 用base64转成字符串形式
             encrypt_data = str(base64.encodebytes(encrypt_data), encoding='utf-8')  # 执行加密并转码返回bytes
 
         return encrypt_data
 
-
-    def decode_aes(self, key:str, encode_data:str, base64_flag = True):
+    @staticmethod
+    def decode_aes(key:str, encode_data:str, base64_flag = True):
         # 初始化加密器
-        aes = AES.new(self.add_to_16(key), AES.MODE_ECB)
+        aes = AES.new(Decode_hex.add_to_16(key), AES.MODE_ECB)
 
         if base64_flag:
             # 优先逆向解密base64成bytes
@@ -42,19 +45,19 @@ class Decode_hex:
         # 执行解密密并转码返回str
         decrypted_text = str(aes.decrypt(encode_data), encoding='utf-8').replace('\0', '')
         return decrypted_text
-
-    def add_to_16(self, value):
+    @staticmethod
+    def add_to_16(value):
         while len(value) % 16 != 0:
             value += '\0'
         return str.encode(value)  # 返回bytes
 
+    @staticmethod
     # str不是32的倍数那就补足为16的倍数
     def add_to_32(value):
         while len(value) % 32 != 0:
             value += '\0'
         return str.encode(value)  # 返回bytes
 
-decode = Decode_hex()
 
 if __name__ == '__main__':
     d = Decode_hex()
