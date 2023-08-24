@@ -1,7 +1,8 @@
-import time
 from enum import Enum
 
 from src.dao.proxy_dao import proxyDao
+from src.utils.date_utils import DateUtils
+
 
 class Proxy_type(Enum):
     LOCAL_PROXY = ('local_proxy')
@@ -11,8 +12,7 @@ class Proxy_type(Enum):
 class ProxyService:
 
     def create_proxy(self,ip, port,user_name='', user_pwd='', proxy_type = Proxy_type.LOCAL_PROXY.value):
-        t = time.time()
-        ts = int(t) * 1000
+        ts = DateUtils.get_timestamp()
         records = []
 
         records.append((ip, port, user_name, user_pwd, proxy_type, 1, '', ts))

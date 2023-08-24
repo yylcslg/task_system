@@ -1,7 +1,6 @@
-import time
-
 from src.dao.wallet_dao import walletDao
 from src.utils.Properties import pro
+from src.utils.date_utils import DateUtils
 from src.utils.decode_hex import decode
 from src.utils.wallet_account import Wallet
 
@@ -36,8 +35,7 @@ class WalletService:
 
     def build_save_batch(self,lines, batch_name, encode_flag = True):
         key = pro.get('aes_key')
-        t = time.time()
-        ts = int(t) * 1000
+        ts = DateUtils.get_timestamp()
         num = 0
         records = []
         for line in lines:
