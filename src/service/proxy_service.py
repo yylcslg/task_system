@@ -1,10 +1,16 @@
 import time
+from enum import Enum
 
 from src.dao.proxy_dao import proxyDao
 
+class Proxy_type(Enum):
+    LOCAL_PROXY = ('local_proxy')
+    STATIC_PROXY = ('static_proxy')
+    DYNC_PROXY = ('dync_proxy')
+
 class ProxyService:
 
-    def create_proxy(self,ip, port,user_name='', user_pwd='', proxy_type='local_proxy'):
+    def create_proxy(self,ip, port,user_name='', user_pwd='', proxy_type = Proxy_type.LOCAL_PROXY.value):
         t = time.time()
         ts = int(t) * 1000
         records = []
@@ -16,9 +22,9 @@ class ProxyService:
         rs = proxyDao.query_by_type(proxy_type)
         lst = []
         for line in rs:
-            if proxy_type == 'local_proxy':
+            if proxy_type == Proxy_type.LOCAL_PROXY.value:
                 lst.append(line['ip'] + ':' + line['port'])
-            if proxy_type == 'static_proxy':
+            if proxy_type == Proxy_type.STATIC_PROXY.value:
                 proxy_str = 'http://{0}:{1}@{2}:{3}'.format(line['user_name'],
                                                             line['user_pwd'],
                                                             line['ip'],
@@ -30,7 +36,9 @@ class ProxyService:
 
 if __name__ == '__main__':
     p = ProxyService()
-    #p.create_proxy('192.0.0.7','8889', 'yyl','yyl_pwd', 'static_proxy')
+    #p.create_proxy('192.0.0.7','8889', 'yyl','yyl_pwd', Proxy_type.STATIC_PROXY.value)
 
-    p.query_by_type('static_proxy')
+    #p.query_by_type(Proxy_type.STATIC_PROXY.value)
+    print(Proxy_type.LOCAL_PROXY.value)
+
     print('finish.....')
