@@ -43,13 +43,14 @@ CREATE TABLE `scheduler_db`.`b_proxy` (
 
 CREATE TABLE `scheduler_db`.`b_code` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `code_txt` TEXT NULL,
-  `param_1` VARCHAR(256) NULL,
-  `param_2` VARCHAR(256) NULL,
-  `param_3` VARCHAR(256) NULL,
-  `param_4` VARCHAR(256) NULL,
   `code_name` VARCHAR(64) NULL,
+  `code_txt` TEXT NULL,
+  `accounts_exp_1` VARCHAR(256) NULL,
+  `accounts_exp_2` VARCHAR(256) NULL,
+  `proxy_ip_exp` VARCHAR(256) NULL,
+  `param_exp` VARCHAR(256) NULL,
   `code_desc` VARCHAR(256) NULL,
+  UNIQUE INDEX `code_name_UNIQUE` (`code_name` ASC),
   PRIMARY KEY (`id`));
 
 

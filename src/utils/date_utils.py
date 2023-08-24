@@ -1,4 +1,5 @@
 import time
+import datetime
 
 
 class DateUtils:
@@ -21,6 +22,15 @@ class DateUtils:
     def get_date_str(ts, formart='%Y%m%d'):
         timeArray = time.localtime(ts)
         return time.strftime(formart, timeArray)
+
+    @staticmethod
+    def date_str(day_num=0, format="%Y-%m-%d %H:%M:%S"):
+        today = datetime.datetime.now()
+        # 计算偏移量
+        offset = datetime.timedelta(days=day_num)
+        # 获取想要的日期的时间
+        re_date = (today + offset).strftime(format)
+        return re_date
 
 
 
