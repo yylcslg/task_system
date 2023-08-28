@@ -1,4 +1,6 @@
 from src.dao.wallet_dao import WalletDao
+from src.task_core.tools.block_chain import Block_chain
+from src.task_core.tools.web3_wrap import Web3Wrap
 from src.utils.MysqlDB import mysql
 
 
@@ -24,6 +26,15 @@ def test_query_wallet():
 
 if __name__ == '__main__':
     #test_sql()
-    test_query_wallet()
+    #test_query_wallet()
+    proxy_ip = '127.0.0.1:8889'
+    b1 = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, proxy_ip= proxy_ip)
+    Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, proxy_ip='127.0.0.1:8889')
+    Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, proxy_ip='127.0.0.1:8889')
+    Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, proxy_ip='127.0.0.1:8889')
+    Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, proxy_ip='127.0.0.1:8889')
+    Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, proxy_ip='127.0.0.1:8889')
+    b2 = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, proxy_ip='127.0.0.1:8889')
+    print(b1,b2)
     print('finish.....')
     pass

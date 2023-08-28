@@ -21,7 +21,6 @@ class TaskCore:
         params = ''
         try:
             w = Web3Wrap(block_chain=Block_chain.BSC_ANKR, gas_flag=False)
-            print(w.proxy_ip)
             exec(exec_txt, {"w": w, "params": params})
         except Exception as e:
             print('error...', e)

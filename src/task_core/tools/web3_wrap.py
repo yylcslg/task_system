@@ -1,3 +1,6 @@
+import hashlib
+import threading
+
 from eth_account import Account
 from web3 import Web3, middleware
 from web3.gas_strategies.time_based import medium_gas_price_strategy
@@ -29,6 +32,20 @@ class Web3Wrap:
         if block_chain.middleware == 'poa':
             self.w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
+    instance_dic ={'1':3}
+
+    @staticmethod
+    def get_instance(block_chain = Block_chain.LINEA_TEST,  proxy_ip = '127.0.0.1:8889', timeout = 120, gas_flag = True):
+        str_msg = block_chain.url + proxy_ip
+        key = hashlib.md5(str_msg.encode(encoding='utf-8')).hexdigest()
+        if key in  Web3Wrap.instance_dic:
+            pass
+        else:
+            with threading.RLock():
+                if key not in Web3Wrap.instance_dic:
+                    Web3Wrap.instance_dic[key] = Web3Wrap(block_chain, proxy_ip, timeout, gas_flag)
+
+        return Web3Wrap.instance_dic[key]
 
     #Web3.to_int
     def get_balance(self, address = None, private_key = None, unit = 'wei'):
