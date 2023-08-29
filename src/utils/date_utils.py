@@ -15,6 +15,16 @@ class DateUtils:
         return ts
 
 
+    @staticmethod
+    def get_timestamp_min():
+        format_str = '%Y-%m-%d %H:%M'
+        ts_str = DateUtils.date_str(format = format_str)
+
+        timeArray = time.strptime(ts_str, format_str)
+
+        ts = int(time.mktime(timeArray)) * 1000
+        return ts
+
     #
     #%Y-%m-%d %H:%M:%S
     #
@@ -24,7 +34,7 @@ class DateUtils:
         return time.strftime(formart, timeArray)
 
     @staticmethod
-    def date_str(day_num=0, format="%Y-%m-%d %H:%M:%S"):
+    def date_str(day_num=0, format ='%Y-%m-%d %H:%M:%S'):
         today = datetime.datetime.now()
         # 计算偏移量
         offset = datetime.timedelta(days=day_num)
