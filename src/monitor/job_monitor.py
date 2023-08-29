@@ -1,13 +1,16 @@
 import time
 
+from src.monitor.job_process import JobProcess, jobProcess
 from src.monitor.job_queue import jobQueue
 from src.service.job_service import JobService
 from src.utils.date_utils import DateUtils
 from src.utils.log import log_error
+from src.utils.threads.job_thread_pool import job_monitor_thread
 
 
 class JobMonitor:
     job = JobService()
+    jobProcess = JobProcess()
 
     def monitor_job(self):
         while(True):
@@ -21,7 +24,6 @@ class JobMonitor:
                         self.job.modify_job_exe_time(j, ts)
                         jobQueue.queue.put(j)
                         print('put after size:', jobQueue.queue.qsize())
-
                 time.sleep(40)
             except Exception as e:
                 print('error:', e)
@@ -35,5 +37,7 @@ class JobMonitor:
 
 
 if __name__ == '__main__':
-    j = JobMonitor()
-    j.monitor_job()
+    job_monitor_thread.submit(JobMonitor().monitor_job)
+    job_monitor_thread.submit(jobProcess.process)
+    print('finish......')
+

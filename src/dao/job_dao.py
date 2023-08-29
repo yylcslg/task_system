@@ -8,7 +8,7 @@ class JobDao:
             ,'latest_exe_time','next_exe_time','parallelism_num','job_desc','job_flag','create_time','update_time']
         columns_str = ','.join([x for x in columns])
 
-        sql = 'SELECT ' + columns_str + ' FROM j_job where  latest_exe_time <= '+str(ts)+' and job_flag =' + job_flag
+        sql = 'SELECT ' + columns_str + ' FROM j_job where  latest_exe_time < '+str(ts)+' and job_flag =' + job_flag
 
         rs = mysqlPool.query(sql)
         return rs

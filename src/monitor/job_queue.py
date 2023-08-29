@@ -3,8 +3,8 @@ from queue import Queue
 
 class JobQueue:
 
-    def __init__(self):
-        self.q = Queue(maxsize=1000)
+    def __init__(self, maxsize = 1000):
+        self.q = Queue(maxsize=maxsize)
 
     @property
     def queue(self):
