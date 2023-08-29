@@ -73,11 +73,11 @@ def read_file():
 
 if __name__ == '__main__':
     w = WalletService()
-    #w.create_wallet_batch('test_3')
+    w.create_wallet_batch('batch_name_3')
     #rs = w.delete_by_batch(batch_name = 'batch_1')
-    columns = ['ip', 'port', 'user_name', 'user_pwd', 'proxy_type', 'proxy_flag', 'proxy_desc', 'create_time']
-    columns_str = ','.join([x for x in columns])
-    print(columns_str)
+    #columns = ['ip', 'port', 'user_name', 'user_pwd', 'proxy_type', 'proxy_flag', 'proxy_desc', 'create_time']
+    #columns_str = ','.join([x for x in columns])
+    #print(columns_str)
     #read_file()
     print('finish.....')
     pass

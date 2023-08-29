@@ -27,7 +27,7 @@ class JobMonitor:
                 time.sleep(40)
             except Exception as e:
                 print('error:', e)
-                log_error.msg_error('error', e)
+                #log_error.msg_error('error', e)
 
 
 
