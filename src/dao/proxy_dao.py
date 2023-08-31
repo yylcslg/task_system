@@ -3,7 +3,7 @@ from src.utils.MysqlPool import mysqlPool
 
 class ProxyDao:
 
-    def query_by_type(self, proxy_type, proxy_flag = '1'):
+    def select_by_type(self, proxy_type, proxy_flag = '1'):
         columns = ['ip', 'port', 'user_name', 'user_pwd', 'proxy_type', 'proxy_flag', 'proxy_desc','create_time']
         columns_str = ','.join([x for x in columns])
         sql = 'SELECT ' + columns_str + ' FROM b_proxy where proxy_type=\'' + proxy_type + '\' and proxy_flag =' + proxy_flag
@@ -14,7 +14,7 @@ class ProxyDao:
         sql = 'delete from b_proxy where id=' + id
         return mysqlPool.exeSql(sql)
 
-    def query_count(self, proxy_type, proxy_flag = 1):
+    def select_count(self, proxy_type, proxy_flag = 1):
         sql = 'select * from b_proxy where proxy_type=\'' + proxy_type + '\' and proxy_flag =' + proxy_flag
         return mysqlPool.queryCount(sql)
 

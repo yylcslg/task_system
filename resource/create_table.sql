@@ -45,10 +45,10 @@ CREATE TABLE `scheduler_db`.`b_code` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `code_name` VARCHAR(64) NULL,
   `code_txt` TEXT NULL,
-  `accounts_exp_1` VARCHAR(256) NULL,
-  `accounts_exp_2` VARCHAR(256) NULL,
+  `accounts_exp_1` VARCHAR(1024) NULL,
+  `accounts_exp_2` VARCHAR(1024) NULL,
   `proxy_ip_exp` VARCHAR(256) NULL,
-  `param_exp` VARCHAR(256) NULL,
+  `param_exp` VARCHAR(512) NULL,
   `code_desc` VARCHAR(256) NULL,
   UNIQUE INDEX `code_name_UNIQUE` (`code_name` ASC),
   PRIMARY KEY (`id`));

@@ -19,7 +19,7 @@ class ProxyService:
         proxyDao.insert_batch(records)
 
     def query_by_type(self, proxy_type):
-        rs = proxyDao.query_by_type(proxy_type)
+        rs = proxyDao.select_by_type(proxy_type)
         lst = []
         for line in rs:
             if proxy_type == Proxy_type.LOCAL_PROXY.value:

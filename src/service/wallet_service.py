@@ -9,7 +9,7 @@ from src.utils.wallet_account import Wallet
 class WalletService:
 
     def create_wallet_batch(self, batch_name, total_num = 10):
-        count = walletDao.query_count(batch_name)
+        count = walletDao.select_count(batch_name)
         if count >0:
             print('batch_name:',batch_name ,' is already exict.....')
             return
@@ -21,7 +21,7 @@ class WalletService:
 
     def query_wallet_by_batch(self, batch_name):
         key = pro.get('aes_key')
-        rs = walletDao.query_batch(batch_name)
+        rs = walletDao.select_batch(batch_name)
 
         for dic in rs:
             dic['wallet_key'] = Decode_hex.decode_aes(key, dic['wallet_key'])
@@ -56,7 +56,7 @@ class WalletService:
 
 
     def import_wallet_from_file(self, lines, batch_name):
-        count = walletDao.query_count(batch_name)
+        count = walletDao.select_count(batch_name)
         if count > 0:
             print('batch_name:', batch_name, ' is already exict.....')
             return
