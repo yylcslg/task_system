@@ -1,17 +1,17 @@
 from src.utils.MysqlPool import mysqlPool
 
 
-class CodeDao:
+class TemplateDao:
 
-    def select_by_name(self, code_name):
-        columns = ['code_name', 'code_txt', 'accounts_exp_1', 'accounts_exp_2', 'proxy_ip_exp', 'param_exp', 'code_desc']
+    def select_by_name(self, template_name):
+        columns = ['template_name', 'template_txt', 'accounts_exp_1', 'accounts_exp_2', 'proxy_ip_exp', 'param_exp', 'template_desc']
         columns_str = ','.join([x for x in columns])
-        sql = 'SELECT ' + columns_str + ' FROM b_code where code_name=\'' + code_name + '\''
+        sql = 'SELECT ' + columns_str + ' FROM b_template where template_name=\'' + template_name + '\''
         rs = mysqlPool.query(sql)
         return rs
 
     def insert_batch(self, lst):
-        sql = 'insert into b_code (code_name,code_txt,accounts_exp_1,accounts_exp_2,proxy_ip_exp,param_exp,code_desc) values(%s,%s,%s,%s,%s,%s,%s)'
+        sql = 'insert into b_template (template_name,template_txt,accounts_exp_1,accounts_exp_2,proxy_ip_exp,param_exp,template_desc) values(%s,%s,%s,%s,%s,%s,%s)'
         return mysqlPool.insertBatch(sql, lst)
 
 
@@ -27,7 +27,7 @@ class CodeDao:
                     columns.append(k + '=' + str(msg_dict[k]))
         columns_str = ','.join([x for x in columns])
 
-        sql = 'update b_code set ' + columns_str + ' where id = ' + id
+        sql = 'update b_template set ' + columns_str + ' where id = ' + id
         mysqlPool.exeSql(sql)
 
-codeDao = CodeDao()
+templateDao = TemplateDao()

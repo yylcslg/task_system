@@ -1,5 +1,5 @@
-from src.service.code_service import codeService
 from src.service.proxy_service import Proxy_type
+from src.service.template_service import templateService
 from src.task_core.task_core import TaskCore
 from src.utils.tools import msg_encode, msg_decode
 
@@ -13,25 +13,25 @@ def run_spider(file_name, urls = None, proxy_ips={}, params = None):
 
 def save_file_to_code(file_name, urls = None, proxy_ips={}, params = None):
     with open(p + file_name) as f:
-        code_name = 'bnb_balance_echo'
-        code_txt = msg_encode(f.read())
+        template_name = 'bnb_balance_echo_01'
+        template_txt = msg_encode(f.read())
         accounts_exp_1 = 'batch_name_1[0:5];batch_name_2[3:6]'
         accounts_exp_2 = ''
         proxy_ip_exp = Proxy_type.LOCAL_PROXY.value
         param_exp = ''
-        code_desc = ''
+        template_desc = ''
 
-        #codeService.create_code(code_name, exec_txt, accounts_exp_1,accounts_exp_2,proxy_ip_exp, param_exp, code_desc)
+        #templateService.create_template(template_name, template_txt, accounts_exp_1,accounts_exp_2,proxy_ip_exp, param_exp, template_desc)
         msg_dict = {}
         msg_dict['id'] = 2
-        msg_dict['code_name'] = code_name
-        msg_dict['code_txt'] = code_txt
+        msg_dict['template_name'] = template_name
+        msg_dict['template_txt'] = template_txt
 
-        codeService.modify_code(msg_dict)
-        rs = codeService.query_code_by_name(code_name)
+        #templateService.modify_template(msg_dict)
+        rs = templateService.query_template_by_name(template_name)
 
         for l in rs :
-            print(msg_decode(l['code_txt']))
+            print(msg_decode(l['template_txt']))
 
 
     pass
