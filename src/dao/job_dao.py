@@ -4,7 +4,7 @@ from src.utils.MysqlPool import mysqlPool
 class JobDao:
 
     def select_all(self, ts,job_flag='1'):
-        columns = ['id', 'job_name', 'job_name_cn', 'code_name', 'code_id', 'param_1', 'param_2', 'job_cycle','job_min','job_hour','job_day','job_week','job_month_day'
+        columns = ['id', 'job_name', 'job_name_cn', 'template_name', 'template_id', 'param_1', 'param_2', 'job_cycle','job_min','job_hour','job_day','job_week','job_month_day'
             ,'latest_exe_time','next_exe_time','parallelism_num','job_desc','job_flag','create_time','update_time']
         columns_str = ','.join([x for x in columns])
 
