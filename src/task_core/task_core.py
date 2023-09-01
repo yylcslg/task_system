@@ -25,7 +25,7 @@ class TaskCore:
     #5.1: 抛出异常3次，任务停止执行 ：每次交易都需要gas， 如果开启重试 ，会导致 亏损
     #5.2 交易 失败状态连续3 次 任务停止
     def run(self):
-        print('job_dict:', self.job_dict)
+
 
         proxy_ip_list = proxyService.query_by_type(proxy_type= self.template_dict['proxy_ip_exp'])
         account_1_lst = self.query_accounts_exp_1(self.account_exp)
@@ -33,6 +33,7 @@ class TaskCore:
         account_tuple = tools.parse_exp(self.account_exp.strip())
         self.job_dict['batch_name'] = account_tuple[0]
         self.job_dict['batch_from'] = account_tuple[3]
+        print('job_dict:', self.job_dict)
 
         parallelism_num = self.job_dict['parallelism_num']
         max_thread_worker = int(pro.get('max_thread_worker'))
@@ -65,7 +66,7 @@ class TaskCore:
 
     def query_accounts_exp_1(self, account_exp):
         if account_exp.strip().isspace():
-            return
+            return []
 
         tuple = tools.parse_exp(account_exp.strip())
         return walletService.query_wallet_by_param(tuple[0], tuple[1], tuple[2])
@@ -76,11 +77,9 @@ class TaskCore:
     def query_accounts_exp_2(self, template_dict):
         try:
             template_accounts_exp = template_dict['accounts_exp_1'].split(';')
-            exp = template_accounts_exp[0].strip()
-            if exp.isspace():
-                rs = self.query_accounts_exp_1(exp)
-                if len(rs)>0:
-                    return rs[0]
+            rs = self.query_accounts_exp_1(template_accounts_exp[0])
+            if len(rs)>0:
+                return rs[0]
 
         except Exception as e:
             print('error:', e)
