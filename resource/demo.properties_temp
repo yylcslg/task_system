@@ -8,3 +8,5 @@ mysql_db=xxx
 
 max_thread_worker=10
 max_job_thread=200
+
+local_default_proxy_ip=127.0.0.1:888
