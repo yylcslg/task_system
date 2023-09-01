@@ -59,6 +59,7 @@ class JobProcess:
         print('['+desc+']', account_exp)
         taskCore = TaskCore(job_dict, template_dict, account_exp)
         taskCore.run
+
         JobProcess.job_instance_dict[job_dict['instance_id']] = taskCore
 
 
