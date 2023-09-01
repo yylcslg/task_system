@@ -44,23 +44,25 @@ class TaskCore:
 
             with ThreadPoolExecutor(max_workers = worker_num) as executor:
                 for a in account_1_lst :
-                    proxy_ip = random.choice(proxy_ip_list)
-                    executor.submit(TaskCore.run_single,
-                                    self.template_dict['template_txt'],
-                                    account_1 = a.address,
-                                    account_2 = account_2,
-                                    proxy_ip = proxy_ip,
-                                    param_exp = self.template_dict['param_exp'],
-                                    job_dict = self.job_dict)
+                    if self.run_flag:
+                        proxy_ip = random.choice(proxy_ip_list)
+                        executor.submit(TaskCore.run_single,
+                                        self.template_dict['template_txt'],
+                                        account_1 = a.address,
+                                        account_2 = account_2,
+                                        proxy_ip = proxy_ip,
+                                        param_exp = self.template_dict['param_exp'],
+                                        job_dict = self.job_dict)
         else:
             for a in account_1_lst:
-                proxy_ip = random.choice(proxy_ip_list)
-                TaskCore.run_single(self.template_dict['template_txt'],
-                                account_1=a,
-                                account_2=account_2,
-                                proxy_ip=proxy_ip,
-                                param_exp=self.template_dict['param_exp'],
-                                job_dict=self.job_dict)
+                if self.run_flag:
+                    proxy_ip = random.choice(proxy_ip_list)
+                    TaskCore.run_single(self.template_dict['template_txt'],
+                                    account_1=a,
+                                    account_2=account_2,
+                                    proxy_ip=proxy_ip,
+                                    param_exp=self.template_dict['param_exp'],
+                                    job_dict=self.job_dict)
 
 
 
