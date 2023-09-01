@@ -87,8 +87,8 @@ CREATE TABLE `scheduler_db`.`j_job_instance` (
   `job_name_cn` VARCHAR(64) NULL,
   `template_id` BIGINT NULL,
   `template_name` VARCHAR(64) NULL,
-  `instance_total` INT NULL,
-  `instance_id` VARCHAR(64) NULL COMMENT 'jobname_天_num',
+  `instance_id` VARCHAR(64) NULL,
+  `pre_instance_id` VARCHAR(64) NULL,
   `exe_time` BIGINT NULL,
   `wallet_batch_name` VARCHAR(64) NULL,
   `wallet_batch_from` VARCHAR(64) NULL,
@@ -114,6 +114,7 @@ CREATE TABLE `scheduler_db`.`j_job_instance_detail` (
   `tx_param_2` VARCHAR(64) NULL,
   `tx_param_3` VARCHAR(64) NULL,
   `tx_param_4` VARCHAR(64) NULL,
+  `tx_error` VARCHAR(1024) NULL,
   PRIMARY KEY (`id`));
 
 

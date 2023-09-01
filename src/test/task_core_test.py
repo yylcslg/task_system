@@ -8,7 +8,7 @@ p = '/home/yinyunlong/person/python_workspace/task_system/src/test/'
 
 def run_spider(file_name, urls = None, proxy_ips={}, params = None):
     with open(p + file_name) as f:
-        TaskCore(msg_encode(f.read())).setup()
+        TaskCore.local_run(msg_encode(f.read()))
 
 
 def save_file_to_code(file_name, urls = None, proxy_ips={}, params = None):

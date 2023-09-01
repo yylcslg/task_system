@@ -46,4 +46,4 @@ class DateUtils:
 
 if __name__ == '__main__':
     ts = DateUtils.get_timestamp()
-    print(DateUtils.get_date_str(ts))
+    print(DateUtils.date_str(format='%Y%m%d%H%M%S'))

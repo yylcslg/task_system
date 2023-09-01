@@ -1,31 +1,45 @@
-from src.task_core.tools.block_chain import Block_chain
-from src.task_core.tools.web3_wrap import Web3Wrap
 from src.utils.tools import msg_decode
 
 
 class TaskCore:
 
-    def __init__(self, exec_txt):
-        self.exec_txt = msg_decode(exec_txt)
+    def __init__(self, job_dict={}, template_dict={}, account_exp=''):
+        self.job_dict = job_dict
+        self.template_dict = template_dict
+        self.account_exp = account_exp
+        self.run_flag = True
 
-    def setup(self):
+
+    #1： 创建 job instance 记录， 解析 exp 规则
+    #2：获取 account1 所有wallet
+    #3：遍历wallet
+    #4：记录 执行记录
+    #5: 异常处理
+    #5.1: 抛出异常3次，任务停止执行 ：每次交易都需要gas， 如果开启重试 ，会导致 亏损
+    #5.2 交易 失败状态连续3 次 任务停止
+    def run(self):
         #if self.urls == None:
-        self.runSingle(self.exec_txt)
+        self.runSingle(self.template_txt)
 
         #for url in self.urls.split(","):
             #if self.run_state:self.runSingle(self.exec_txt, url=url, params=self.params)
 
 
-    def runSingle(self, exec_txt):
-        url = ''
-        params = ''
+
+
+
+    def runSingle(self):
+        template_txt = msg_decode(self.template_dict['template_txt'])
+
+
+
+    @staticmethod
+    def local_run(template_txt):
         try:
-            w = Web3Wrap(block_chain=Block_chain.BSC_ANKR, gas_flag=False)
-            exec(exec_txt, {"w": w, "params": params})
+            params = ''
+            exec(msg_decode(template_txt), {"params": params})
         except Exception as e:
             print('error...', e)
-        return url
-
 
     def stop(self):
         self.run_state = False
