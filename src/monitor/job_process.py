@@ -57,10 +57,9 @@ class JobProcess:
     @staticmethod
     def single_process(job_dict, template_dict, account_exp, desc):
         print('['+desc+']', account_exp)
-        taskCore = TaskCore()
+        taskCore = TaskCore(job_dict, template_dict, account_exp)
         taskCore.run
         JobProcess.job_instance_dict[job_dict['instance_id']] = taskCore
-        pass
 
 
     def stop_job_instance(self, instance_id):

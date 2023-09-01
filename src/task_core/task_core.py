@@ -18,6 +18,12 @@ class TaskCore:
     #5.1: 抛出异常3次，任务停止执行 ：每次交易都需要gas， 如果开启重试 ，会导致 亏损
     #5.2 交易 失败状态连续3 次 任务停止
     def run(self):
+        print('job_dict:', self.job_dict)
+        print('template_dict:', self.template_dict)
+        print('account_exp:', self.account_exp)
+        proxy_ip_exp = self.template_dict['proxy_ip_exp']
+
+
         #if self.urls == None:
         self.runSingle(self.template_txt)
 
