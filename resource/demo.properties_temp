@@ -5,3 +5,6 @@ mysql_port=xx
 mysql_user=xx
 mysql_pwd=xx
 mysql_db=xxx
+
+max_thread_worker=10
+max_job_thread=200
