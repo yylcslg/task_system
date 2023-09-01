@@ -33,6 +33,8 @@ class ProxyService:
         #itertools.cycle(lst)
         return lst
 
+proxyService = ProxyService()
+
 
 if __name__ == '__main__':
     p = ProxyService()

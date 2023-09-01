@@ -30,6 +30,17 @@ class WalletService:
         return rs
 
 
+    def query_wallet_by_param(self, batch_name,   start_offset = 0, end_offset =0, decode_flag = True):
+        key = pro.get('aes_key')
+        rs = walletDao.select_by_param(batch_name, start_offset, end_offset)
+        lst = []
+        for dic in rs:
+            if decode_flag:
+                lst.append(Wallet.from_private_key(Decode_hex.decode_aes(key, dic['wallet_key'])))
+        return lst
+
+
+
     def delete_by_batch(self, batch_name):
         return walletDao.delete(batch_name)
 
@@ -65,7 +76,7 @@ class WalletService:
         walletDao.insert_batch(records)
 
 
-
+walletService = WalletService()
 def read_file():
     w = WalletService()
     lines = Wallet.read_wallet_records('a.csv')

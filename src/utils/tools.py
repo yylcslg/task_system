@@ -95,3 +95,30 @@ def byte_human_read(size, dot=2):
     return human_size
 
 
+
+
+def parse_exp(account_exp):
+    start_offset = 0
+    end_offset = 0
+    batch_from = ''
+    if account_exp.__contains__('['):
+        array_1 = account_exp.split('[')
+
+        batch_name = array_1[0].strip()
+        batch_from = '[' + array_1[1]
+        array_2 = array_1[1].replace(']' , '').split(':')
+        start_str = array_2[0].strip()
+        if start_str == '':
+            start_offset = 0
+        else:
+            start_offset = int(start_str)
+
+        end_str = array_2[1].strip()
+
+        if end_str == '':
+            end_offset = 0
+        else:
+            end_offset = int(end_str)
+    else:
+        batch_name = account_exp
+    return (batch_name, start_offset, end_offset, batch_from)

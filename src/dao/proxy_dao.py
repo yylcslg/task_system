@@ -7,6 +7,7 @@ class ProxyDao:
         columns = ['ip', 'port', 'user_name', 'user_pwd', 'proxy_type', 'proxy_flag', 'proxy_desc','create_time']
         columns_str = ','.join([x for x in columns])
         sql = 'SELECT ' + columns_str + ' FROM b_proxy where proxy_type=\'' + proxy_type + '\' and proxy_flag =' + proxy_flag
+
         rs = mysqlPool.query(sql)
         return rs
 
