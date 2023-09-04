@@ -10,4 +10,7 @@ class JobQueue:
     def queue(self):
         return self.q
 
+
 jobQueue = JobQueue(maxsize = 1000)
+
+logQueue = JobQueue(maxsize = 10000)

@@ -102,6 +102,7 @@ class TaskCore:
                       'job_dict' : job_dict}
         #print('exe ',exec_param)
         #print('template_txt', msg_decode(template_txt))
+        print('exe start.........')
         exec(msg_decode(template_txt), exec_param)
         print('exe finish.........')
 

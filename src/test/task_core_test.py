@@ -40,5 +40,8 @@ def save_file_to_code(file_name, urls = None, proxy_ips={}, params = None):
 
 if __name__ == "__main__":
     save_file_to_code("bnb_balance_echo.py")
+
+
+
     #run_spider('bnb_balance_echo.py')
     print("finish...................")
