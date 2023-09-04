@@ -42,6 +42,8 @@ class JobService:
         lst.append(instance_dict)
         jobInstanceDao.insert_job_instance(lst)
 
+    def save_job_instance_detail(self, job_dict):
+        pass
 
 
 

@@ -46,7 +46,7 @@ class TaskCore:
                         proxy_ip = random.choice(proxy_ip_list)
                         executor.submit(TaskCore.run_single,
                                         self.template_dict['template_txt'],
-                                        account_1 = a.address,
+                                        account_1 = a,
                                         account_2 = account_2,
                                         proxy_ip = proxy_ip,
                                         param_exp = self.template_dict['param_exp'],
