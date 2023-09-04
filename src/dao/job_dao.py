@@ -28,4 +28,27 @@ class JobDao:
         sql ='update j_job set '+ columns_str +' where id = ' + id
         return mysqlPool.exeSql(sql)
 
+
+    def insert_job(self, map_list):
+        columns = []
+        values = []
+        for k in map_list[0]:
+            columns.append(k)
+            values.append('%s')
+
+        lst = []
+        for d in map_list:
+            temp_lst = []
+            for k in d:
+
+                temp_lst.append(d[k])
+            t = tuple(temp_lst)
+            lst.append(t)
+
+        columns_str = ','.join([x for x in columns])
+        values_str = ','.join([x for x in values])
+        sql = 'insert into j_job (' +columns_str +') values(' + values_str + ')'
+
+        return mysqlPool.insertBatch(sql, lst)
+
 jobDao = JobDao()

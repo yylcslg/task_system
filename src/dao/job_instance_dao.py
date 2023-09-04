@@ -11,7 +11,6 @@ class JobInstanceDao:
             columns.append(k)
             values.append('%s')
 
-        print("444",columns, values)
         lst = []
         for d in map_list:
             temp_lst = []
@@ -24,7 +23,6 @@ class JobInstanceDao:
         columns_str = ','.join([x for x in columns])
         values_str = ','.join([x for x in values])
         sql = 'insert into j_job_instance (' +columns_str +') values(' + values_str + ')'
-        print(sql)
 
         return mysqlPool.insertBatch(sql, lst)
 
