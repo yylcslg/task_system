@@ -40,6 +40,7 @@ class JobMonitor:
             elif job['job_cycle'] == 1: #小时级别
                 if tools.job_by_hour(job) : lst.append(job)
             elif job['job_cycle'] == 2: #天级别
+                #lst.append(job)
                 if tools.job_by_day(job) : lst.append(job)
             elif job['job_cycle'] == 3: #周级别
                 if tools.job_by_week(job) : lst.append(job)

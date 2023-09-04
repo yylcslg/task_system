@@ -1,5 +1,6 @@
 import random
 from concurrent.futures import ThreadPoolExecutor
+from wrapt_timeout_decorator import timeout
 
 from src.service.job_service import jobService
 from src.service.proxy_service import proxyService
@@ -31,7 +32,6 @@ class TaskCore:
         account_2 = self.query_accounts_exp_2(self.template_dict)
         account_1_lst = t[0]
         #jobService.save_job_instance(t,self.job_dict)
-        print('job_dict:', self.job_dict)
 
         parallelism_num = self.job_dict['parallelism_num']
         max_thread_worker = int(pro.get('max_thread_worker'))
@@ -69,8 +69,8 @@ class TaskCore:
         if account_exp.strip().isspace():
             return []
 
-        tuple = tools.parse_exp(account_exp.strip())
-        return (walletService.query_wallet_by_param(tuple[0], tuple[1], tuple[2]), tuple)
+        t = tools.parse_exp(account_exp.strip())
+        return (walletService.query_wallet_by_param(t[0], t[1], t[2]), t)
 
 
 
@@ -78,7 +78,7 @@ class TaskCore:
     def query_accounts_exp_2(self, template_dict):
         try:
             template_accounts_exp = template_dict['accounts_exp_2'].split(';')
-            rs = self.query_accounts_exp_1(template_accounts_exp[0])
+            rs = self.query_accounts_exp_1(template_accounts_exp[0])[0]
             if len(rs)>0:
                 return rs[0]
 
@@ -91,7 +91,8 @@ class TaskCore:
     #
     #
     @staticmethod
-    def run_single(template_txt, account_1, proxy_ip='', account_2=None, param_exp='', job_dict={}):
+    #@timeout(3)
+    def run_single(template_txt, account_1,  account_2, proxy_ip='', param_exp='', job_dict={}):
         if proxy_ip == '':
             proxy_ip = pro.get('local_default_proxy_ip')
         exec_param = {'account_1': account_1,
@@ -100,8 +101,9 @@ class TaskCore:
                       'param_exp' : param_exp,
                       'job_dict' : job_dict}
         #print('exe ',exec_param)
+        #print('template_txt', msg_decode(template_txt))
         exec(msg_decode(template_txt), exec_param)
-
+        print('exe finish.........')
 
 
     @staticmethod
