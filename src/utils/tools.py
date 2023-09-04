@@ -4,6 +4,8 @@ import math
 import urllib
 import pybyte as pybyte
 
+from src.utils.date_utils import DateUtils
+
 MD5 = 'md5'
 UTF_8 = 'utf-8'
 BASE_64 = 'base64'
@@ -122,3 +124,83 @@ def parse_exp(account_exp):
     else:
         batch_name = account_exp
     return (batch_name, start_offset, end_offset, batch_from)
+
+
+
+def job_by_day(job):
+    flag = False
+
+    min = str(job['job_min']).zfill(2)
+    hour = str(job['job_hour']).zfill(2)
+
+    latest_hour_min = DateUtils.get_date_str(job['latest_exe_time']/1000, format='%H%M')
+    current_hour_min = DateUtils.date_str(format='%H%M')
+    target_hour_min = hour + min
+
+
+    if current_hour_min != latest_hour_min and current_hour_min == target_hour_min:
+        flag = True
+
+    print('current_hour_min:', current_hour_min, ' latest_hour_min:', latest_hour_min , ' target_hour_min:', target_hour_min,  'flag:', flag)
+
+    return flag
+
+
+def job_by_week(job):
+    flag = False
+    # week day   1---7
+    target_week_day = str(job['job_week'])
+    current_day=DateUtils.date_str(format = '%Y%m%d')
+    current_week_day = str(DateUtils.day_of_week_num(current_day, format ='%Y%m%d'))
+
+    latest_day = DateUtils.get_date_str(job['latest_exe_time'] / 1000, format = '%Y%m%d')
+
+    #判断 天 是否正确
+    if current_day == latest_day or target_week_day != current_week_day:
+        return False
+
+    min = str(job['job_min']).zfill(2)
+    hour = str(job['job_hour']).zfill(2)
+    target_hour_min = hour + min
+    current_hour_min = DateUtils.date_str(format='%H%M')
+
+
+    if current_hour_min == target_hour_min:
+        flag = True
+    return flag
+
+
+def job_by_hour(job):
+    flag = False
+
+    current_min = DateUtils.date_str(format='%M')
+    target_min = str(job['job_min']).zfill(2)
+    latest_min = DateUtils.get_date_str(job['latest_exe_time'] / 1000, format='%M')
+
+    print('current_min:', current_min, ' latest_min:', latest_min, ' target_min:', target_min)
+
+    if current_min != latest_min and current_min == target_min:
+        flag = True
+    return flag
+
+
+def job_by_only(job):
+    flag = False
+
+    current_day = DateUtils.date_str(format='%Y%m%d')
+
+    min = str(job['job_min']).zfill(2)
+    hour = str(job['job_hour']).zfill(2)
+    ts = job['latest_exe_time']
+
+    if ts != '' and ts > 0 :
+        return False
+
+    current_time = DateUtils.date_str(format='%Y%m%d%H%M')
+    target_time = current_day + hour + min
+
+    print('current_time:', current_time, ' target_time:', target_time)
+
+    if current_time == target_time:
+        flag = True
+    return flag

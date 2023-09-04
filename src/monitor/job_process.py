@@ -49,7 +49,7 @@ class JobProcess:
             taskCore = JobProcess.job_instance_dict[instance_id]
             taskCore.stop()
             del JobProcess.job_instance_dict[instance_id]
-            print('instance_id:', k, ' remove.....')
+            print('instance_id:', instance_id, ' remove.....')
 
 tl = Timeloop()
 

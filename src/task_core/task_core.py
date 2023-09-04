@@ -30,7 +30,7 @@ class TaskCore:
         t = self.query_accounts_exp_1(self.account_exp)
         account_2 = self.query_accounts_exp_2(self.template_dict)
         account_1_lst = t[0]
-        jobService.save_job_instance(t,self.job_dict)
+        #jobService.save_job_instance(t,self.job_dict)
         print('job_dict:', self.job_dict)
 
         parallelism_num = self.job_dict['parallelism_num']
@@ -77,7 +77,7 @@ class TaskCore:
 
     def query_accounts_exp_2(self, template_dict):
         try:
-            template_accounts_exp = template_dict['accounts_exp_1'].split(';')
+            template_accounts_exp = template_dict['accounts_exp_2'].split(';')
             rs = self.query_accounts_exp_1(template_accounts_exp[0])
             if len(rs)>0:
                 return rs[0]
@@ -99,8 +99,8 @@ class TaskCore:
                       'account_2' : account_2,
                       'param_exp' : param_exp,
                       'job_dict' : job_dict}
-        print('exe ',exec_param)
-        #exec(msg_decode(template_txt), exec_param)
+        #print('exe ',exec_param)
+        exec(msg_decode(template_txt), exec_param)
 
 
 
