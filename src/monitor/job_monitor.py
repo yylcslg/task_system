@@ -1,5 +1,6 @@
 import time
 
+
 from src.monitor.job_process import JobProcess, jobProcess
 from src.monitor.job_queue import jobQueue
 from src.service.job_service import JobService
@@ -7,9 +8,11 @@ from src.utils.date_utils import DateUtils
 from src.utils.threads.job_thread_pool import job_monitor_thread
 
 
+
 class JobMonitor:
     job = JobService()
     jobProcess = JobProcess()
+
 
     def monitor_job(self):
         while(True):
@@ -27,11 +30,10 @@ class JobMonitor:
             except Exception as e:
                 print('error:', e)
 
-
-
     def filter_enable_job(self, rs):
 
         return rs
+
 
 
 if __name__ == '__main__':

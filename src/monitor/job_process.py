@@ -1,3 +1,5 @@
+from datetime import timedelta
+from timeloop import Timeloop
 from src.monitor.job_queue import jobQueue
 from src.service.template_service import templateService
 from src.task_core.task_core import TaskCore
@@ -42,12 +44,28 @@ class JobProcess:
         JobProcess.job_instance_dict[job_dict['instance_id']] = taskCore
 
 
-    def stop_job_instance(self, instance_id):
+    def stop_job_instance(instance_id):
         if instance_id in JobProcess.job_instance_dict:
             taskCore = JobProcess.job_instance_dict[instance_id]
             taskCore.stop()
             del JobProcess.job_instance_dict[instance_id]
+            print('instance_id:', k, ' remove.....')
+
+tl = Timeloop()
 
 
+#超过48小时的任务，自动删除
+@tl.job(interval=timedelta(seconds=3600))
+def clear_job_instance():
+    date_str = int(DateUtils.date_str(day_num=2, format='%Y%m%d%H%M%S'))
+
+    for k in JobProcess.job_instance_dict:
+        array = k.split('_')
+        if int(array[2]) > date_str:
+            JobProcess.stop_job_instance(k)
+            print('instance_id:', k, ' more then two day.......')
+
+
+tl.start()
 
 jobProcess = JobProcess()

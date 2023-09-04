@@ -1,6 +1,7 @@
 import random
 from concurrent.futures import ThreadPoolExecutor
 
+from src.service.job_service import jobService
 from src.service.proxy_service import proxyService
 from src.service.wallet_service import walletService
 from src.utils import tools
@@ -25,14 +26,11 @@ class TaskCore:
     #5.1: 抛出异常3次，任务停止执行 ：每次交易都需要gas， 如果开启重试 ，会导致 亏损
     #5.2 交易 失败状态连续3 次 任务停止
     def run(self):
-
-
         proxy_ip_list = proxyService.query_by_type(proxy_type= self.template_dict['proxy_ip_exp'])
-        account_1_lst = self.query_accounts_exp_1(self.account_exp)
+        t = self.query_accounts_exp_1(self.account_exp)
         account_2 = self.query_accounts_exp_2(self.template_dict)
-        account_tuple = tools.parse_exp(self.account_exp.strip())
-        self.job_dict['batch_name'] = account_tuple[0]
-        self.job_dict['batch_from'] = account_tuple[3]
+        account_1_lst = t[0]
+        jobService.save_job_instance(t,self.job_dict)
         print('job_dict:', self.job_dict)
 
         parallelism_num = self.job_dict['parallelism_num']
@@ -66,12 +64,13 @@ class TaskCore:
 
 
 
+
     def query_accounts_exp_1(self, account_exp):
         if account_exp.strip().isspace():
             return []
 
         tuple = tools.parse_exp(account_exp.strip())
-        return walletService.query_wallet_by_param(tuple[0], tuple[1], tuple[2])
+        return (walletService.query_wallet_by_param(tuple[0], tuple[1], tuple[2]), tuple)
 
 
 

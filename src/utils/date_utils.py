@@ -5,7 +5,7 @@ import datetime
 class DateUtils:
 
     @staticmethod
-    def get_timestamp(ms_flag = False):
+    def get_timestamp(ms_flag = True):
         t = time.time()
 
         ts = int(t)
