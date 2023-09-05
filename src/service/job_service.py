@@ -20,7 +20,6 @@ class JobService:
 
 
     def save_job_instance(self, job_dict):
-
         ts = DateUtils.get_timestamp()
 
         lst = []
@@ -45,7 +44,6 @@ class JobService:
         lst = []
         for job_dict in job_dict_lst:
             detail_dict = {}
-
             ts = DateUtils.get_timestamp()
             detail_dict['instance_id'] = job_dict['instance_id']
             detail_dict['exe_time'] = ts
@@ -67,7 +65,6 @@ class JobService:
             tools.target_map_value(detail_dict, job_dict, 'tx_error')
 
             lst.append(detail_dict)
-
         jobInstanceDetailDao.insert_job_instance_detail(lst)
 
 

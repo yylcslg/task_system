@@ -20,7 +20,7 @@ class JobMonitor:
         while(True):
             try:
                 ts = DateUtils.get_timestamp_min()
-                rs = self.job.query_job(ts + 11)
+                rs = self.job.query_job(ts)
                 filter_rs = self.filter_enable_job(rs)
                 exe_num = exe_num + 1
                 if len(filter_rs) > 0:

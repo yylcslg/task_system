@@ -41,14 +41,14 @@ class JobProcess:
 
     def single_process(self, job_dict, template_dict, account_exp):
         taskCore = TaskCore(job_dict, template_dict, account_exp)
-        JobProcess.job_instance_dict[job_dict['instance_id']] = taskCore
+        JobProcess.job_instance_dict[job_dict['instance_id']] = (taskCore, 0)
         taskCore.run()
 
 
 
     def stop_job_instance(instance_id):
         if instance_id in JobProcess.job_instance_dict:
-            taskCore = JobProcess.job_instance_dict[instance_id]
+            (taskCore, num) = JobProcess.job_instance_dict[instance_id]
             taskCore.stop()
             del JobProcess.job_instance_dict[instance_id]
             print('instance_id:', instance_id, ' remove.....')
@@ -75,6 +75,12 @@ class JobProcess:
                 j = logQueue.queue.get(timeout = 3) # 无数据等待3秒
                 if 'instance_id' in j and len(j['instance_id']) > 0 :
                     lst.append(j)
+                if 'tx_status' in j and j['tx_status'] == 2 and 'instance_id' in j:
+                    (taskCore, num) = JobProcess.job_instance_dict[j['instance_id']]
+                    time_num = num + 1
+                    JobProcess.job_instance_dict[j['instance_id']] = (taskCore, time_num)
+                    if time_num > 3 :
+                        self.stop_job_instance(j['instance_id'])
 
             except Exception as e:
                 pass

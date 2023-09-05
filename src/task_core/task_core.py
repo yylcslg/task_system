@@ -1,4 +1,5 @@
 import random
+import copy
 from concurrent.futures import ThreadPoolExecutor
 
 from src.service.job_service import jobService
@@ -39,15 +40,21 @@ class TaskCore:
 
         parallelism_num = self.job_dict['parallelism_num']
         max_thread_worker = int(pro.get('max_thread_worker'))
+
+
         if parallelism_num > 1 :
             worker_num = parallelism_num
             if parallelism_num > max_thread_worker:
                 worker_num = max_thread_worker
 
             with ThreadPoolExecutor(max_workers = worker_num) as executor:
+                num = 0
                 for a in account_1_lst :
                     if self.run_flag:
-                        self.job_dict['wallet_address'] = a.address
+                        print('-----batch_name[', self.job_dict['batch_name'], '] num[', num,'] address:',a.address,' ------------------------')
+                        num = num + 1
+                        deep_job_dict = copy.deepcopy(self.job_dict)
+                        deep_job_dict['wallet_address'] = a.address
                         proxy_ip = random.choice(proxy_ip_list)
                         executor.submit(TaskCore.run_single,
                                         self.template_dict['template_txt'],
@@ -55,18 +62,22 @@ class TaskCore:
                                         account_2 = account_2,
                                         proxy_ip = proxy_ip,
                                         param_exp = self.template_dict['param_exp'],
-                                        job_dict = self.job_dict)
+                                        job_dict = deep_job_dict)
         else:
+            num = 0
             for a in account_1_lst:
                 if self.run_flag:
-                    self.job_dict['wallet_address'] = a.address
+                    print('-----batch_name:[', self.job_dict['batch_name'], '] num:[', num,'] address:',a.address,' ------------------------')
+                    num = num + 1
+                    deep_job_dict = copy.deepcopy(self.job_dict)
+                    deep_job_dict['wallet_address'] = a.address
                     proxy_ip = random.choice(proxy_ip_list)
                     TaskCore.run_single(self.template_dict['template_txt'],
                                     account_1=a,
                                     account_2=account_2,
                                     proxy_ip=proxy_ip,
                                     param_exp=self.template_dict['param_exp'],
-                                    job_dict=self.job_dict)
+                                    job_dict=deep_job_dict)
 
 
 
