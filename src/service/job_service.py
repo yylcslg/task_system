@@ -1,5 +1,7 @@
 from src.dao.job_dao import jobDao
 from src.dao.job_instance_dao import jobInstanceDao
+from src.dao.job_instance_detail_dao import jobInstanceDetailDao
+from src.utils import tools
 from src.utils.date_utils import DateUtils
 
 
@@ -17,11 +19,8 @@ class JobService:
         jobDao.update_by_id(msg_dict)
 
 
-    def save_job_instance(self, t, job_dict):
-        account_tuple = t[1]
-        job_dict['batch_name'] = account_tuple[0]
-        job_dict['batch_from'] = account_tuple[3]
-        job_dict['account_total'] = len(t[0])
+    def save_job_instance(self, job_dict):
+
         ts = DateUtils.get_timestamp()
 
         lst = []
@@ -34,16 +33,42 @@ class JobService:
         instance_dict['template_name'] = job_dict['template_name']
         instance_dict['instance_id'] = job_dict['instance_id']
         instance_dict['exe_time'] = ts
-        instance_dict['wallet_batch_name'] = job_dict['batch_name']
-        instance_dict['wallet_batch_from'] = job_dict['batch_from']
-        instance_dict['wallet_account_total'] = job_dict['account_total']
+        instance_dict['batch_name'] = job_dict['batch_name']
+        instance_dict['batch_from'] = job_dict['batch_from']
+        instance_dict['account_total'] = job_dict['account_total']
         instance_dict['create_time'] = ts
 
         lst.append(instance_dict)
         jobInstanceDao.insert_job_instance(lst)
 
-    def save_job_instance_detail(self, job_dict):
-        pass
+    def save_job_instance_detail(self, job_dict_lst):
+        lst = []
+        for job_dict in job_dict_lst:
+            detail_dict = {}
+
+            ts = DateUtils.get_timestamp()
+            detail_dict['instance_id'] = job_dict['instance_id']
+            detail_dict['exe_time'] = ts
+            tools.target_map_value(detail_dict, job_dict, 'job_name')
+            tools.target_map_value(detail_dict, job_dict, 'template_id')
+
+            tools.target_map_value(detail_dict, job_dict, 'template_name')
+            tools.target_map_value(detail_dict, job_dict, 'batch_name')
+            tools.target_map_value(detail_dict, job_dict, 'wallet_address')
+
+            tools.target_map_value(detail_dict, job_dict, 'tx_id')
+            tools.target_map_value(detail_dict, job_dict, 'tx_status')
+            tools.target_map_value(detail_dict, job_dict, 'balance')
+            tools.target_map_value(detail_dict, job_dict, 'tx_receipt')
+            tools.target_map_value(detail_dict, job_dict, 'tx_param_1')
+            tools.target_map_value(detail_dict, job_dict, 'tx_param_2')
+            tools.target_map_value(detail_dict, job_dict, 'tx_param_3')
+            tools.target_map_value(detail_dict, job_dict, 'tx_param_4')
+            tools.target_map_value(detail_dict, job_dict, 'tx_error')
+
+            lst.append(detail_dict)
+
+        jobInstanceDetailDao.insert_job_instance_detail(lst)
 
 
 

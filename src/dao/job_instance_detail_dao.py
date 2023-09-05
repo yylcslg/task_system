@@ -14,7 +14,6 @@ class JobInstanceDetailDao:
         for d in map_list:
             temp_lst = []
             for k in d:
-
                 temp_lst.append(d[k])
             t = tuple(temp_lst)
             lst.append(t)

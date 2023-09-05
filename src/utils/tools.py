@@ -204,3 +204,7 @@ def job_by_only(job):
     if current_time == target_time:
         flag = True
     return flag
+
+def target_map_value(target_dict, ori_dict, k):
+    if k in ori_dict:
+        target_dict[k] = ori_dict[k]

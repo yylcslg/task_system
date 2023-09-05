@@ -30,7 +30,7 @@ class JobMonitor:
                         print('put after size:', jobQueue.queue.qsize())
                 time.sleep(40)
             except Exception as e:
-                print('error:', e)
+                print('monitor_job error:', e)
 
     def filter_enable_job(self, rs):
         lst = []
@@ -40,23 +40,20 @@ class JobMonitor:
             elif job['job_cycle'] == 1: #小时级别
                 if tools.job_by_hour(job) : lst.append(job)
             elif job['job_cycle'] == 2: #天级别
-                lst.append(job)
-                #if tools.job_by_day(job) : lst.append(job)
+                if tools.job_by_day(job) : lst.append(job)
             elif job['job_cycle'] == 3: #周级别
                 if tools.job_by_week(job) : lst.append(job)
+            elif job['job_cycle'] == 5:  # 测试级别， 启动就执行
+                lst.append(job)
             else:
                 pass
-
-        print('lst:', lst)
         return lst
-
-
-
 
 
 
 if __name__ == '__main__':
     job_monitor_thread.submit(JobMonitor().monitor_job)
     job_monitor_thread.submit(jobProcess.process)
+    job_monitor_thread.submit(jobProcess.job_instance_detail_log)
     print('finish......')
 

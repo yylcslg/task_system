@@ -90,9 +90,9 @@ CREATE TABLE `scheduler_db`.`j_job_instance` (
   `instance_id` VARCHAR(64) NULL,
   `pre_instance_id` VARCHAR(64) NULL,
   `exe_time` BIGINT NULL,
-  `wallet_batch_name` VARCHAR(64) NULL,
-  `wallet_batch_from` VARCHAR(64) NULL,
-  `wallet_account_total` INT NULL,
+  `batch_name` VARCHAR(64) NULL,
+  `batch_from` VARCHAR(64) NULL,
+  `account_total` INT NULL,
   `create_time` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
 
@@ -103,7 +103,7 @@ CREATE TABLE `scheduler_db`.`j_job_instance_detail` (
   `job_name` VARCHAR(64) NULL,
   `template_id` BIGINT NULL,
   `template_name` VARCHAR(64) NULL,
-  `wallet_batch_name` VARCHAR(64) NULL,
+  `batch_name` VARCHAR(64) NULL,
   `wallet_address` VARCHAR(64) NULL,
   `exe_time` BIGINT NULL,
   `tx_id` VARCHAR(64) NULL,

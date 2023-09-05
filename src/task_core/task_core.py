@@ -1,6 +1,5 @@
 import random
 from concurrent.futures import ThreadPoolExecutor
-from wrapt_timeout_decorator import timeout
 
 from src.service.job_service import jobService
 from src.service.proxy_service import proxyService
@@ -17,6 +16,7 @@ class TaskCore:
         self.template_dict = template_dict
         self.account_exp = account_exp
         self.run_flag = True
+        self.instance_id = job_dict['instance_id']
 
 
     #1： 创建 job instance 记录， 解析 exp 规则
@@ -31,7 +31,11 @@ class TaskCore:
         t = self.query_accounts_exp_1(self.account_exp)
         account_2 = self.query_accounts_exp_2(self.template_dict)
         account_1_lst = t[0]
-        #jobService.save_job_instance(t,self.job_dict)
+        account_tuple = t[1]
+        self.job_dict['batch_name'] = account_tuple[0]
+        self.job_dict['batch_from'] = account_tuple[3]
+        self.job_dict['account_total'] = len(account_1_lst)
+        jobService.save_job_instance(self.job_dict)
 
         parallelism_num = self.job_dict['parallelism_num']
         max_thread_worker = int(pro.get('max_thread_worker'))
@@ -43,6 +47,7 @@ class TaskCore:
             with ThreadPoolExecutor(max_workers = worker_num) as executor:
                 for a in account_1_lst :
                     if self.run_flag:
+                        self.job_dict['wallet_address'] = a.address
                         proxy_ip = random.choice(proxy_ip_list)
                         executor.submit(TaskCore.run_single,
                                         self.template_dict['template_txt'],
@@ -54,6 +59,7 @@ class TaskCore:
         else:
             for a in account_1_lst:
                 if self.run_flag:
+                    self.job_dict['wallet_address'] = a.address
                     proxy_ip = random.choice(proxy_ip_list)
                     TaskCore.run_single(self.template_dict['template_txt'],
                                     account_1=a,
@@ -117,7 +123,7 @@ class TaskCore:
 
     def stop(self):
         self.run_state = False
-        print("stop...")
+        print(self.instance_id, " stop.........")
 
 
 #print(TaskCore.parse_exp('batch_name_1[ 3: ]'))

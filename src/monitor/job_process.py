@@ -1,6 +1,7 @@
 from datetime import timedelta
 from timeloop import Timeloop
-from src.monitor.job_queue import jobQueue
+from src.monitor.job_queue import jobQueue, logQueue
+from src.service.job_service import jobService
 from src.service.template_service import templateService
 from src.task_core.task_core import TaskCore
 from src.utils.date_utils import DateUtils
@@ -17,7 +18,7 @@ class JobProcess:
                 j = jobQueue.queue.get()
                 job_process_thread.submit(self.multi_process, j)
             except Exception as e:
-                print('error:', e)
+                print('JobProcess error:', e)
                 #log_error.msg_error('error', e)
 
 
@@ -40,8 +41,9 @@ class JobProcess:
 
     def single_process(self, job_dict, template_dict, account_exp):
         taskCore = TaskCore(job_dict, template_dict, account_exp)
-        taskCore.run()
         JobProcess.job_instance_dict[job_dict['instance_id']] = taskCore
+        taskCore.run()
+
 
 
     def stop_job_instance(instance_id):
@@ -50,6 +52,33 @@ class JobProcess:
             taskCore.stop()
             del JobProcess.job_instance_dict[instance_id]
             print('instance_id:', instance_id, ' remove.....')
+
+    def job_instance_detail_log(self):
+        lst =[]
+        start_time = DateUtils.get_timestamp()
+        while True:
+            try:
+                current_time = DateUtils.get_timestamp()
+                if current_time - start_time >=10000: # 超过10s
+                    if len(lst)==0:
+                        start_time = DateUtils.get_timestamp()
+                    else:
+                        start_time = DateUtils.get_timestamp()
+                        jobService.save_job_instance_detail(lst)
+                        lst = []
+
+                if len(lst) >= 100:
+                    start_time = DateUtils.get_timestamp()
+                    jobService.save_job_instance_detail(lst)
+                    lst = []
+
+                j = logQueue.queue.get(timeout = 3) # 无数据等待3秒
+                if 'instance_id' in j and len(j['instance_id']) > 0 :
+                    lst.append(j)
+
+            except Exception as e:
+                pass
+                #print('warn: job_instance_detail_log logQueue is empty', e)
 
 tl = Timeloop()
 
@@ -63,9 +92,8 @@ def clear_job_instance():
         array = k.split('_')
         if int(array[2]) > date_str:
             JobProcess.stop_job_instance(k)
-            print('instance_id:', k, ' more then two day.......')
+            print('instance_id:', k, ' more then two day, stop task.......')
 
 
 tl.start()
-
 jobProcess = JobProcess()
