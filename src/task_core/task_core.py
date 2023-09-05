@@ -46,7 +46,7 @@ class TaskCore:
             worker_num = parallelism_num
             if parallelism_num > max_thread_worker:
                 worker_num = max_thread_worker
-
+            print('worker_num', worker_num)
             with ThreadPoolExecutor(max_workers = worker_num) as executor:
                 num = 0
                 for a in account_1_lst :

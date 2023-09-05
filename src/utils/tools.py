@@ -141,7 +141,7 @@ def job_by_day(job):
     if current_hour_min != latest_hour_min and current_hour_min == target_hour_min:
         flag = True
 
-    #print('current_hour_min:', current_hour_min, ' latest_hour_min:', latest_hour_min , ' target_hour_min:', target_hour_min,  'flag:', flag)
+    print('job[',job['job_name'],'] current_hour_min:', current_hour_min, ' target_hour_min:', target_hour_min, ' latest_hour_min:', latest_hour_min ,'flag:', flag)
 
     return flag
 

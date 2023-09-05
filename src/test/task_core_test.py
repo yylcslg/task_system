@@ -13,17 +13,17 @@ def run_spider(file_name, urls = None, proxy_ips={}, params = None):
 
 def save_file_to_code(file_name, urls = None, proxy_ips={}, params = None):
     with open(p + file_name) as f:
-        template_name = 'bnb_balance_echo'
+        template_name = 'mailzero'
         template_txt = msg_encode(f.read())
-        accounts_exp_1 = 'batch_name_1[0:1]'
-        accounts_exp_2 = 'batch_name_2[0:1]'
+        accounts_exp_1 = 'tinc_wallet_2[:]'
+        accounts_exp_2 = ''
         proxy_ip_exp = Proxy_type.LOCAL_PROXY.value
         param_exp = ''
         template_desc = ''
 
         #templateService.create_template(template_name, template_txt, accounts_exp_1,accounts_exp_2,proxy_ip_exp, param_exp, template_desc)
         msg_dict = {}
-        msg_dict['id'] = 7
+        msg_dict['id'] = 8
         #msg_dict['template_name'] = template_name
         msg_dict['template_txt'] = template_txt
 
@@ -39,9 +39,7 @@ def save_file_to_code(file_name, urls = None, proxy_ips={}, params = None):
 
 
 if __name__ == "__main__":
-    save_file_to_code("bnb_balance_echo.py")
-
-
+    save_file_to_code("mailzero.py")
 
     #run_spider('bnb_balance_echo.py')
     print("finish...................")

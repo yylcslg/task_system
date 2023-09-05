@@ -79,12 +79,13 @@ class WalletService:
 walletService = WalletService()
 def read_file():
     w = WalletService()
-    lines = Wallet.read_wallet_records('a.csv')
-    w.import_wallet_from_file(lines,'batch_2')
+    lines = Wallet.read_wallet_records('tinc_wallet_1.csv')
+    w.import_wallet_from_file(lines,'tinc_wallet_1')
 
 if __name__ == '__main__':
-    w = WalletService()
-    w.create_wallet_batch('batch_name_3')
+    read_file()
+    #w = WalletService()
+    #w.create_wallet_batch('batch_name_3')
     #rs = w.delete_by_batch(batch_name = 'batch_1')
     #columns = ['ip', 'port', 'user_name', 'user_pwd', 'proxy_type', 'proxy_flag', 'proxy_desc', 'create_time']
     #columns_str = ','.join([x for x in columns])

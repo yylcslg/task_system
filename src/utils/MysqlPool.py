@@ -26,7 +26,7 @@ class MysqlPool:
     def query(self, sql):
         self.cur.execute(sql)  # 执行sql
         rs = self.cur.fetchall()  # 返回结果为字典
-
+        self.coon.commit()
         return rs
 
     def queryCount(self, sql: str):
@@ -34,6 +34,7 @@ class MysqlPool:
         try:
             self.cur.execute(sql)
             count = self.cur.rowcount
+            self.coon.commit()
         except Exception as e:
             print("Error: ", e)
         return count
