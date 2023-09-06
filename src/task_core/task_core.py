@@ -41,7 +41,6 @@ class TaskCore:
         parallelism_num = self.job_dict['parallelism_num']
         max_thread_worker = int(pro.get('max_thread_worker'))
 
-
         if parallelism_num > 1 :
             worker_num = parallelism_num
             if parallelism_num > max_thread_worker:
@@ -51,33 +50,31 @@ class TaskCore:
                 num = 0
                 for a in account_1_lst :
                     if self.run_flag:
-                        print('-----batch_name[', self.job_dict['batch_name'], '] num[', num,'] address:',a.address,' ------------------------')
-                        num = num + 1
                         deep_job_dict = copy.deepcopy(self.job_dict)
-                        deep_job_dict['wallet_address'] = a.address
                         proxy_ip = random.choice(proxy_ip_list)
                         executor.submit(TaskCore.run_single,
                                         self.template_dict['template_txt'],
+                                        exe_num = num,
                                         account_1 = a,
                                         account_2 = account_2,
                                         proxy_ip = proxy_ip,
                                         param_exp = self.template_dict['param_exp'],
                                         job_dict = deep_job_dict)
+                        num = num + 1
         else:
             num = 0
             for a in account_1_lst:
                 if self.run_flag:
-                    print('-----batch_name:[', self.job_dict['batch_name'], '] num:[', num,'] address:',a.address,' ------------------------')
-                    num = num + 1
                     deep_job_dict = copy.deepcopy(self.job_dict)
-                    deep_job_dict['wallet_address'] = a.address
                     proxy_ip = random.choice(proxy_ip_list)
                     TaskCore.run_single(self.template_dict['template_txt'],
+                                    exe_num=num,
                                     account_1=a,
                                     account_2=account_2,
                                     proxy_ip=proxy_ip,
                                     param_exp=self.template_dict['param_exp'],
                                     job_dict=deep_job_dict)
+                    num = num + 1
 
 
 
@@ -108,8 +105,7 @@ class TaskCore:
     #
     #
     @staticmethod
-    #@timeout(3)
-    def run_single(template_txt, account_1,  account_2, proxy_ip='', param_exp='', job_dict={}):
+    def run_single(template_txt, exe_num, account_1,  account_2, proxy_ip='', param_exp='', job_dict={}):
         if proxy_ip == '':
             proxy_ip = pro.get('local_default_proxy_ip')
         exec_param = {'account_1': account_1,
@@ -117,20 +113,12 @@ class TaskCore:
                       'account_2' : account_2,
                       'param_exp' : param_exp,
                       'job_dict' : job_dict}
-        #print('exe ',exec_param)
-        #print('template_txt', msg_decode(template_txt))
-        print('exe start.........')
+
+        job_dict['wallet_address'] = account_1.address
+        print('--[start]-----[', job_dict['batch_name'], '] [', exe_num,'] address:',account_1.address,' ------------------------')
         exec(msg_decode(template_txt), exec_param)
-        print('exe finish.........')
+        print('--[finish]-----[', job_dict['batch_name'], '] [', exe_num,'] address:',account_1.address,' ------------------------')
 
-
-    @staticmethod
-    def local_run(template_txt):
-        try:
-            params = ''
-            exec(msg_decode(template_txt), {"params": params})
-        except Exception as e:
-            print('error...', e)
 
     def stop(self):
         self.run_state = False

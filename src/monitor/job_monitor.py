@@ -27,7 +27,7 @@ class JobMonitor:
                     for j in filter_rs:
                         self.job.modify_job_exe_time(j, ts)
                         jobQueue.queue.put(j)
-                        print('put after size:', jobQueue.queue.qsize())
+                    print('jobQueue  size:', jobQueue.queue.qsize())
                 time.sleep(40)
             except Exception as e:
                 print('monitor_job error:', e)
