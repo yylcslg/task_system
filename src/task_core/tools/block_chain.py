@@ -3,6 +3,7 @@ from enum import Enum
 
 class Block_chain(Enum):
     ETH = ('https://mainnet.infura.io/v3/a4c5b4ef4d704823980c3349f3b99d18',1, 'pos')
+    LINEA = ('https://linea.blockpi.network/v1/rpc/public', 59144, 'pos')
     ZKS_ERA = ('https://mainnet.era.zksync.io', 324, 'pos')
     BSC = ('https://bsc-dataseed.binance.org/', 56, 'pos', 'BKB2APPEW672F9AFU3B41D6UW3VE3W722G')
     BSC_ANKR = ('https://rpc.ankr.com/bsc/', 56, 'pos', 'http_tools.py')

@@ -17,7 +17,8 @@ class TaskCore:
         self.template_dict = template_dict
         self.account_exp = account_exp
         self.run_flag = True
-        self.instance_id = job_dict['instance_id']
+        if 'instance_id' in job_dict:
+            self.instance_id = job_dict['instance_id']
 
 
     #1： 创建 job instance 记录， 解析 exp 规则
@@ -93,7 +94,7 @@ class TaskCore:
         try:
             template_accounts_exp = template_dict['accounts_exp_2'].split(';')
             rs = self.query_accounts_exp_1(template_accounts_exp[0])[0]
-            if len(rs)>0:
+            if len(rs)>0 and rs !='':
                 return rs[0]
 
         except Exception as e:

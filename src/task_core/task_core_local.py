@@ -25,6 +25,7 @@ class TaskCoreLocal:
             num = 0
             for account_exp in template_accounts_exp:
                 job_dict = {}
+
                 job_dict['instance_id'] = 'job_' + 'local' + '_' + DateUtils.date_str(format='%Y%m%d%H%M%S') + '_' + str(num)
                 num = num + 1
                 t = taskCore.query_accounts_exp_1(account_exp)
@@ -33,14 +34,16 @@ class TaskCoreLocal:
                 job_dict['batch_name'] = account_tuple[0]
                 job_dict['batch_from'] = account_tuple[3]
                 job_dict['account_total'] = len(account_1_lst)
+
                 TaskCoreLocal.local_single(template_txt, account_1_lst, account_2, parallelism_num = parallelism_num,
                                            proxy_ip_list=proxy_ip_list, param_exp=param_exp, job_dict=job_dict)
 
         except Exception as e:
-            print('error...', e)
+            print('local_run error...', e)
 
 
     def local_single(template_txt,accounts_1_lst,accounts_2, proxy_ip_list, parallelism_num =1,param_exp='', job_dict={}):
+        print(job_dict)
         try:
             if parallelism_num > 1:
                 with ThreadPoolExecutor(max_workers=parallelism_num) as executor:
@@ -70,4 +73,4 @@ class TaskCoreLocal:
                     num = num + 1
 
         except Exception as e:
-            print('error...', e)
+            print('local_single error...', e)
