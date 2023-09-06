@@ -21,6 +21,7 @@ class TaskCoreLocal:
             template_dict['accounts_exp_2'] = accounts_exp_2
             account_2 = taskCore.query_accounts_exp_2(template_dict)
 
+
             num = 0
             for account_exp in template_accounts_exp:
                 job_dict = {}
