@@ -81,7 +81,7 @@ def verifiy_code_method(w, a1, accessToken, verifiy_code):
         'Authorization': 'Bearer ' + accessToken
     }
     rsp1 = w.session.request(method='get', url=url1, headers=headers)
-    print('[Verifiy_code1]status:', rsp1.status_code, ' rsp:', rsp1.json())
+    print('[Verifiy_code 1]status:', rsp1.status_code, ' rsp:', rsp1.json())
 
     url2 = 'https://www.unemeta.com/api/backend/api/project/v1/joinme/scode/succeed?code=' + verifiy_code
     headers = {
@@ -96,13 +96,16 @@ def verifiy_code_method(w, a1, accessToken, verifiy_code):
 a1 = account_1
 w = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, gas_flag=False)
 
-nonce_json = nonce(w, a1)
-resgister(w, a1, nonce_json)
+#nonce_json = nonce(w, a1)
+#resgister(w, a1, nonce_json)
 accessToken = login(w, a1)
 signin(w, a1, accessToken)
-query_point(w, a1, accessToken)
+#query_point(w, a1, accessToken)
 
-verifiy_code ='eheltl'
-verifiy_code_method(w, a1, accessToken, verifiy_code)
 
+#verifiy_code ='423qm2'
+#verifiy_code_method(w, a1, accessToken, verifiy_code)
+
+
+#https://din.web3go.xyz?ref=5a571d41ecada762
 

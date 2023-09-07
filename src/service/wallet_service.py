@@ -79,8 +79,8 @@ class WalletService:
 walletService = WalletService()
 def read_file():
     w = WalletService()
-    lines = Wallet.read_wallet_records('tinc_wallet_1.csv')
-    w.import_wallet_from_file(lines,'tinc_wallet_1')
+    lines = Wallet.read_wallet_records('tinc_wallet_8.csv')
+    w.import_wallet_from_file(lines,'tinc_wallet_8')
 
 if __name__ == '__main__':
     read_file()
