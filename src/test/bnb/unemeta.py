@@ -3,11 +3,6 @@ import json
 from src.task_core.tools.block_chain import Block_chain
 from src.task_core.tools.web3_wrap import Web3Wrap
 
-w = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, gas_flag=False)
-
-
-
-a1 = account_1
 
 def nonce(w, a1):
     url ='https://www.unemeta.com/api/backend/api/user/v1/users/nonce'
@@ -61,7 +56,6 @@ def signin(w, a1, accessToken):
         'Authorization':'Bearer ' +accessToken
     }
 
-
     rsp = w.session.request(method='get', url=url, headers=headers)
     print('[signin]status:', rsp.status_code, ' rsp:', rsp.json())
 
@@ -75,7 +69,6 @@ def query_point(w, a1, accessToken):
         'Authorization': 'Bearer ' + accessToken
     }
     rsp = w.session.request(method='get', url=url, headers=headers)
-
     print('[query_point]status:', rsp.status_code, ' rsp:', rsp.json())
 
 
@@ -100,11 +93,14 @@ def verifiy_code_method(w, a1, accessToken, verifiy_code):
     print('[Verifiy_code 2]status:', rsp2.status_code, ' rsp:', rsp2.json())
 
 
-#nonce_json = nonce(w, a1)
-#resgister(w, a1, nonce_json)
+a1 = account_1
+w = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, gas_flag=False)
+
+nonce_json = nonce(w, a1)
+resgister(w, a1, nonce_json)
 accessToken = login(w, a1)
-#signin(w, a1, accessToken)
-#query_point(w, a1, accessToken)
+signin(w, a1, accessToken)
+query_point(w, a1, accessToken)
 
 verifiy_code ='eheltl'
 verifiy_code_method(w, a1, accessToken, verifiy_code)
