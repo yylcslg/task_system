@@ -107,18 +107,23 @@ class TaskCore:
     #
     @staticmethod
     def run_single(template_txt, exe_num, account_1,  account_2, proxy_ip='', param_exp='', job_dict={}):
-        if proxy_ip == '':
-            proxy_ip = pro.get('local_default_proxy_ip')
-        exec_param = {'account_1': account_1,
-                      'proxy_ip' : proxy_ip,
-                      'account_2' : account_2,
-                      'param_exp' : param_exp,
-                      'job_dict' : job_dict}
+        try:
+            if proxy_ip == '':
+                proxy_ip = pro.get('local_default_proxy_ip')
+            exec_param = {'account_1': account_1,
+                          'proxy_ip': proxy_ip,
+                          'account_2': account_2,
+                          'param_exp': param_exp,
+                          'job_dict': job_dict}
 
-        job_dict['wallet_address'] = account_1.address
-        print('--[start]-----[', job_dict['batch_name'], '] [', exe_num,'] address:',account_1.address,' ------------------------')
-        exec(msg_decode(template_txt), exec_param)
-        print('--[finish]-----[', job_dict['batch_name'], '] [', exe_num,'] address:',account_1.address,' ------------------------')
+            job_dict['wallet_address'] = account_1.address
+            print('--[start]-----[', job_dict['batch_name'], '] [', exe_num, '] address:', account_1.address,' ------------------------')
+            exec(msg_decode(template_txt), exec_param)
+            print('--[finish]-----[', job_dict['batch_name'], '] [', exe_num, '] address:', account_1.address,' ------------------------')
+        except Exception as e:
+            print('run_single error：',e)
+
+
 
 
     def stop(self):
