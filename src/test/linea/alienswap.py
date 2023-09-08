@@ -1,4 +1,5 @@
 import json
+import time
 
 from src.task_core.tools.block_chain import Block_chain
 from src.task_core.tools.web3_wrap import Web3Wrap
@@ -10,6 +11,7 @@ def signin(w, a1, invitation_code):
     headers = {
         'Accept': 'application/json, text/plain, */*',
         #'Content-Type': 'application/json; charset=utf-8',
+        #'Referer':'https://alienswap.xyz/rewards',
         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0'
     }
 
@@ -24,7 +26,7 @@ def signin(w, a1, invitation_code):
         "network": "eth"
     }
     rsp = w.session.request(method='post', url=url, headers=headers, data=json.dumps(payload))
-    print('[signin]status:', rsp.status_code, ' rsp:', rsp.content)
+    #print('[signin]status:', rsp.status_code, ' rsp:', rsp.content)
 
     accessToken = rsp.json()['data']['access_token']
     return accessToken
@@ -94,8 +96,9 @@ w = Web3Wrap.get_instance(block_chain=Block_chain.LINEA, gas_flag=False)
 invitation_code = 'd3L9oT'
 accessToken = signin(w, a1, invitation_code)
 #twitter_box(w, a1, accessToken)
-checkin(w, a1, accessToken)
-#points_info(w, a1, accessToken)
-
+time.sleep(1)
+#checkin(w, a1, accessToken)
+points_info(w, a1, accessToken)
+time.sleep(1)
 
 #https://alienswap.xyz/rewards

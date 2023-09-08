@@ -43,6 +43,7 @@ class TaskCoreLocal:
                 account_1_lst = t[0]
                 account_tuple = t[1]
                 job_dict['batch_name'] = account_tuple[0]
+                job_dict['start_num'] = account_tuple[1]
                 job_dict['batch_from'] = account_tuple[3]
                 job_dict['account_total'] = len(account_1_lst)
 
@@ -65,11 +66,10 @@ class TaskCoreLocal:
 
 
     def local_single(template_txt,accounts_1_lst,accounts_2, proxy_ip_list, parallelism_num =1,param_exp='', job_dict={}):
-        print(job_dict)
         try:
             if parallelism_num > 1:
                 with ThreadPoolExecutor(max_workers=parallelism_num) as executor:
-                    num = 0
+                    num = job_dict['start_num']
                     for a in accounts_1_lst:
                         proxy_ip = random.choice(proxy_ip_list)
                         executor.submit(TaskCore.run_single,
@@ -82,7 +82,7 @@ class TaskCoreLocal:
                                         job_dict=job_dict)
                         num = num + 1
             else:
-                num = 0
+                num = job_dict['start_num']
                 for a in accounts_1_lst:
                     proxy_ip = random.choice(proxy_ip_list)
                     TaskCore.run_single(template_txt,

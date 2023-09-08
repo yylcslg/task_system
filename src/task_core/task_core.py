@@ -35,6 +35,7 @@ class TaskCore:
         account_1_lst = t[0]
         account_tuple = t[1]
         self.job_dict['batch_name'] = account_tuple[0]
+        self.job_dict['start_num'] = account_tuple[1]
         self.job_dict['batch_from'] = account_tuple[3]
         self.job_dict['account_total'] = len(account_1_lst)
         jobService.save_job_instance(self.job_dict)
@@ -48,7 +49,7 @@ class TaskCore:
                 worker_num = max_thread_worker
             print('worker_num', worker_num)
             with ThreadPoolExecutor(max_workers = worker_num) as executor:
-                num = 0
+                num = self.job_dict['start_num']
                 for a in account_1_lst :
                     if self.run_flag:
                         deep_job_dict = copy.deepcopy(self.job_dict)
@@ -63,7 +64,7 @@ class TaskCore:
                                         job_dict = deep_job_dict)
                         num = num + 1
         else:
-            num = 0
+            num = self.job_dict['start_num']
             for a in account_1_lst:
                 if self.run_flag:
                     deep_job_dict = copy.deepcopy(self.job_dict)
