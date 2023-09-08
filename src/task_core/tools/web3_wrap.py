@@ -17,9 +17,10 @@ class Web3Wrap:
     def __init__(self, block_chain = Block_chain.LINEA_TEST,  proxy_ip = '127.0.0.1:8889', timeout = 120, gas_flag = True):
         self.proxy_ip = proxy_ip
         self.proxies = HttpTools.build_proxy(proxy_ip)
-        self.timeout = timeout
         self.session = HttpTools.create_session(proxy_ip)
         self.w3 = Web3(Web3.HTTPProvider(block_chain.url, session=self.session))
+
+        self.timeout = timeout
         self.chainid = self.w3.eth.chainId
         self.gas_flag = gas_flag
 

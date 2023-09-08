@@ -11,7 +11,8 @@ class HttpTools:
     @staticmethod
     def create_session(proxy: str) -> requests.Session:
         session = requests.Session()
-        session.proxies = HttpTools.build_proxy(proxy)
+        if proxy != '':
+            session.proxies = HttpTools.build_proxy(proxy)
         try:
             resp = session.get('http://ip-api.com/json/', timeout=10)
             data = resp.json()
