@@ -100,12 +100,16 @@ w = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, gas_flag=False)
 #resgister(w, a1, nonce_json)
 accessToken = login(w, a1)
 signin(w, a1, accessToken)
-#query_point(w, a1, accessToken)
+query_point(w, a1, accessToken)
 
 
-#verifiy_code ='423qm2'
+#www.unemeta.com/zh/rewards?invitationCode=true
+#eheltl
+#verifiy_code ='eheltl'
 #verifiy_code_method(w, a1, accessToken, verifiy_code)
 
+
+#https://www.unemeta.com/zh/rewards
 
 #https://din.web3go.xyz?ref=5a571d41ecada762
 
