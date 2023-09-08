@@ -26,7 +26,7 @@ def signin(w, a1, invitation_code):
         "network": "eth"
     }
     rsp = w.session.request(method='post', url=url, headers=headers, data=json.dumps(payload))
-    #print('[signin]status:', rsp.status_code, ' rsp:', rsp.content)
+    print('[signin]status:', rsp.status_code, ' rsp:', rsp.content)
 
     accessToken = rsp.json()['data']['access_token']
     return accessToken
@@ -89,6 +89,22 @@ def points_info(w, a1, access_token):
     print('[points_info]status:', rsp.status_code,' total score:', rsp.json()["data"]["total_points"], ' rsp:', rsp.json())
 
 
+def mint_token2049(w, a1, access_token):
+    headers = {
+        'Accept': 'application/json, text/plain, */*',
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+        'Authorization': 'Bearer ' + access_token
+    }
+
+    url = "https://alienswap.xyz/alien-api/api/v1/private/activity/token2049/account/mint?network=eth"
+    payload = {
+        "partner_uuid": "gDgt2BBJ785S2zqtv5aREn",
+        "network": "eth"
+    }
+
+    rsp = w.session.request(method='post', url=url, headers=headers, data=json.dumps(payload))
+    print('[mint_token2049]status:', rsp.status_code, ' rsp:',rsp.json())
+
 
 a1 = account_1
 w = Web3Wrap.get_instance(block_chain=Block_chain.LINEA, gas_flag=False)
@@ -98,7 +114,10 @@ accessToken = signin(w, a1, invitation_code)
 #twitter_box(w, a1, accessToken)
 
 time.sleep(1)
-checkin(w, a1, accessToken)
+#checkin(w, a1, accessToken)
+
+mint_token2049(w, a1, accessToken)
+
 #points_info(w, a1, accessToken)
 time.sleep(1)
 
