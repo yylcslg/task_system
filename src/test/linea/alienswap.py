@@ -96,9 +96,10 @@ w = Web3Wrap.get_instance(block_chain=Block_chain.LINEA, gas_flag=False)
 invitation_code = 'd3L9oT'
 accessToken = signin(w, a1, invitation_code)
 #twitter_box(w, a1, accessToken)
+
 time.sleep(1)
-#checkin(w, a1, accessToken)
-points_info(w, a1, accessToken)
+checkin(w, a1, accessToken)
+#points_info(w, a1, accessToken)
 time.sleep(1)
 
 #https://alienswap.xyz/rewards
