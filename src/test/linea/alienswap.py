@@ -3,16 +3,16 @@ import time
 
 from src.task_core.tools.block_chain import Block_chain
 from src.task_core.tools.web3_wrap import Web3Wrap
-
+from fake_useragent import UserAgent
 
 def signin(w, a1, invitation_code):
+    ua = UserAgent()
+    user_agent = ua.random
 
     url = "https://alienswap.xyz/alien-api/api/v1/public/user/signin?network=eth"
     headers = {
         'Accept': 'application/json, text/plain, */*',
-        #'Content-Type': 'application/json; charset=utf-8',
-        #'Referer':'https://alienswap.xyz/rewards',
-        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0'
+        'User-Agent':user_agent
     }
 
     sign_text = "Welcome to AlienSwap!\nClick to sign in and accept the AlienSwap Terms of Service.\nThis request will not trigger a blockchain transaction or cost any gas fees."
@@ -92,7 +92,8 @@ def points_info(w, a1, access_token):
 def mint_token2049(w, a1, access_token):
     headers = {
         'Accept': 'application/json, text/plain, */*',
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+        'User-Agent':'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:103.0) Gecko/20100101 Firefox/103.0',
+        #'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
         'Authorization': 'Bearer ' + access_token
     }
 
@@ -106,6 +107,27 @@ def mint_token2049(w, a1, access_token):
     print('[mint_token2049]status:', rsp.status_code, ' rsp:',rsp.json())
 
 
+# https://alienswap.xyz/alien-api/api/v1/public/activity/token2049/user/info?network=base
+#{
+#  "network": "base"
+#}
+def mint_2049_info(w, a1, access_token):
+    ua = UserAgent()
+    user_agent = ua.random
+    headers = {
+        'Accept': 'application/json, text/plain, */*',
+        'User-Agent': user_agent,
+        'Authorization': 'Bearer ' + access_token
+    }
+
+    url = "https://alienswap.xyz/alien-api/api/v1/public/activity/token2049/user/info?network=eth"
+    payload = {
+        "network": "eth"
+    }
+
+    rsp = w.session.request(method='post', url=url, headers=headers, data=json.dumps(payload))
+    print('[mint_2049_info]status:', rsp.status_code, ' rsp:', rsp.json())
+
 a1 = account_1
 w = Web3Wrap.get_instance(block_chain=Block_chain.LINEA, gas_flag=False)
 
@@ -114,11 +136,12 @@ accessToken = signin(w, a1, invitation_code)
 #twitter_box(w, a1, accessToken)
 
 time.sleep(1)
-#checkin(w, a1, accessToken)
+checkin(w, a1, accessToken)
 
-mint_token2049(w, a1, accessToken)
+#mint_token2049(w, a1, accessToken)
 
 #points_info(w, a1, accessToken)
+#mint_2049_info(w, a1, accessToken)
 time.sleep(1)
 
 #https://alienswap.xyz/rewards

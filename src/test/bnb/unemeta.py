@@ -100,7 +100,7 @@ w = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, gas_flag=False)
 #resgister(w, a1, nonce_json)
 accessToken = login(w, a1)
 signin(w, a1, accessToken)
-query_point(w, a1, accessToken)
+#query_point(w, a1, accessToken)
 
 
 #www.unemeta.com/zh/rewards?invitationCode=true

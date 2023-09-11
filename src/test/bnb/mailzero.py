@@ -24,7 +24,7 @@ w = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, proxy_ip=proxy_ip_st
 #w = Web3Wrap(block_chain=Block_chain.BSC_ANKR, proxy_ip=proxy_ip_str, gas_flag=False)
 
 checkin(w, a1.address)
-queryDailyInfo(w, a1.address)
+#queryDailyInfo(w, a1.address)
 
 #job['tx_receipt']='rsp'
 #logQueue.queue.put(job)
