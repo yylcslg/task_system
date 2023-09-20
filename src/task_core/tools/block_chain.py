@@ -20,6 +20,7 @@ class Block_chain(Enum):
     ZKS_ERA_TEST = ('https://testnet.era.zksync.dev', 280, 'poa')
     SCROLL_TEST = ('https://scroll-alphanet.public.blastapi.io', 534353, 'pos')
     SCROLL_SEP_TEST = ('https://sepolia-rpc.scroll.io/', 534351, 'pos')
+    SCROLL_SEP_ALPHA_TEST = ('https://alpha-rpc.scroll.io/l2', 534353, 'pos')
 
 
 
