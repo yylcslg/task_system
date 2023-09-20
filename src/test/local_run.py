@@ -40,7 +40,7 @@ def run_alienswap(dir_name, file_name):
 
 
 if __name__ == "__main__":
-    run_mailzero('bnb', 'mailzero.py')
-    run_unemeta('bnb', 'unemeta.py')
-    #run_alienswap('linea', 'alienswap.py')
+    #run_mailzero('bnb', 'mailzero.py')
+    #run_unemeta('bnb', 'unemeta.py')
+    run_alienswap('linea', 'alienswap.py')
     print("finish...................")
