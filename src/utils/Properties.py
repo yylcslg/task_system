@@ -17,6 +17,7 @@ class Properties:
             pro_file.close()
         return properties
 
+#pro = Properties('./../resource/param.properties').getProperties()
 pro = Properties('../../resource/param.properties').getProperties()
 if __name__ == '__main__':
     pro = Properties('../../resource/param.properties')

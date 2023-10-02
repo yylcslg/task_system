@@ -15,6 +15,7 @@ class MysqlPool:
     @staticmethod
     def getmysqlconn():
         if MysqlPool.__pool is None:
+            #pro = Properties('./../resource/param.properties').getProperties()
             pro = Properties('../../resource/param.properties').getProperties()
             __pool = PooledDB(creator=pymysql, mincached=1, maxcached=20, host=pro.get('mysql_ip'),
                               user=pro.get('mysql_user'), passwd=pro.get('mysql_pwd'), db=pro.get('mysql_db'),

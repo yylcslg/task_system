@@ -1,7 +1,7 @@
 import time
 
 
-from src.monitor.job_process import JobProcess, jobProcess
+from src.monitor.job_process import jobProcess
 from src.monitor.job_queue import jobQueue
 from src.service.job_service import JobService
 from src.utils import tools
@@ -12,7 +12,6 @@ from src.utils.threads.job_thread_pool import job_monitor_thread
 
 class JobMonitor:
     job = JobService()
-    jobProcess = JobProcess()
 
 
     def monitor_job(self):

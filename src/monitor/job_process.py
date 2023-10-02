@@ -34,7 +34,7 @@ class JobProcess:
 
         num = 0
         for account_exp in template_accounts_exp:
-            job['instance_id'] = 'job_' + str(job['id']) + '_' + DateUtils.date_str(format='%Y%m%d%H%M%S') + '_' + str(num)
+            job['instance_id'] = 'job_' + str(job['id']) + '_' + DateUtils.date_str(format='%Y%m%d_%H%M%S') + '_' + str(num)
             num = num + 1
             self.single_process(job, template_dict, account_exp)
 

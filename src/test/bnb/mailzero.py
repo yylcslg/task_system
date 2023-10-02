@@ -11,13 +11,13 @@ def queryDailyInfo(w, address):
 
 
 def checkin(w, address):
-    url ='https://api.mailzero.network/checkin?address='+address
+    url ='https://api2.mailzero.network/checkin?address='+address
     rsp = w.session.request(method='get', url=url)
     print('[checkin] ',address,' status code:' , rsp.status_code, ' content:' , rsp.content)
 
 
 a1 = account_1
-#job = job_dict
+job = job_dict
 proxy_ip_str = proxy_ip
 
 w = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, proxy_ip=proxy_ip_str, gas_flag=False)
@@ -27,7 +27,7 @@ checkin(w, a1.address)
 #queryDailyInfo(w, a1.address)
 
 #job['tx_receipt']='rsp'
-#logQueue.queue.put(job)
+logQueue.queue.put(job)
 
 #https://mailzero.network/stamp?earneth=229068
 
