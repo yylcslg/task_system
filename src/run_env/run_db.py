@@ -7,4 +7,5 @@ if __name__ == '__main__':
     job_monitor_thread.submit(jobProcess.process)
     job_monitor_thread.submit(jobProcess.job_instance_detail_log)
 
+
     print('finish......')
