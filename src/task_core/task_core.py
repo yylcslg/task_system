@@ -55,7 +55,7 @@ class TaskCore:
                     if self.run_flag:
                         deep_job_dict = copy.deepcopy(self.job_dict)
                         proxy_ip = random.choice(proxy_ip_list)
-                        executor.submit(self.run_single,
+                        executor.submit(TaskCore.run_single,
                                         self.template_dict['template_txt'],
                                         exe_num = num,
                                         account_1 = a,
@@ -70,7 +70,7 @@ class TaskCore:
                 if self.run_flag:
                     deep_job_dict = copy.deepcopy(self.job_dict)
                     proxy_ip = random.choice(proxy_ip_list)
-                    self.run_single(self.template_dict['template_txt'],
+                    TaskCore.run_single(self.template_dict['template_txt'],
                                     exe_num=num,
                                     account_1=a,
                                     account_2=account_2,
@@ -107,7 +107,8 @@ class TaskCore:
     # 静态方法，方便后期 单个wallet 执行
     #
     #
-    def run_single(self, template_txt, exe_num, account_1,  account_2, proxy_ip='', param_exp='', job_dict={}):
+    @staticmethod
+    def run_single(template_txt, exe_num, account_1,  account_2, proxy_ip='', param_exp='', job_dict={}):
         try:
             if proxy_ip == '':
                 proxy_ip = pro.get('local_default_proxy_ip')
