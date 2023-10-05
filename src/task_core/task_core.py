@@ -11,12 +11,13 @@ from src.utils.tools import msg_decode
 
 
 class TaskCore:
+    run_flag = True
 
     def __init__(self, job_dict={}, template_dict={}, account_exp=''):
         self.job_dict = job_dict
         self.template_dict = template_dict
         self.account_exp = account_exp
-        self.run_flag = True
+        #self.run_flag = True
         if 'instance_id' in job_dict:
             self.instance_id = job_dict['instance_id']
 
@@ -54,7 +55,7 @@ class TaskCore:
                     if self.run_flag:
                         deep_job_dict = copy.deepcopy(self.job_dict)
                         proxy_ip = random.choice(proxy_ip_list)
-                        executor.submit(TaskCore.run_single,
+                        executor.submit(self.run_single,
                                         self.template_dict['template_txt'],
                                         exe_num = num,
                                         account_1 = a,
@@ -69,7 +70,7 @@ class TaskCore:
                 if self.run_flag:
                     deep_job_dict = copy.deepcopy(self.job_dict)
                     proxy_ip = random.choice(proxy_ip_list)
-                    TaskCore.run_single(self.template_dict['template_txt'],
+                    self.run_single(self.template_dict['template_txt'],
                                     exe_num=num,
                                     account_1=a,
                                     account_2=account_2,
@@ -106,8 +107,7 @@ class TaskCore:
     # 静态方法，方便后期 单个wallet 执行
     #
     #
-    @staticmethod
-    def run_single(template_txt, exe_num, account_1,  account_2, proxy_ip='', param_exp='', job_dict={}):
+    def run_single(self, template_txt, exe_num, account_1,  account_2, proxy_ip='', param_exp='', job_dict={}):
         try:
             if proxy_ip == '':
                 proxy_ip = pro.get('local_default_proxy_ip')
@@ -127,9 +127,10 @@ class TaskCore:
 
 
 
-    def stop(self):
+    def stop(self, status):
         self.run_state = False
-        print(self.instance_id, " stop.........")
+        jobService.modify_instance_status(self.instance_id, status)
+        print(self.instance_id, 'status:', status, ' run_state ',self.run_state,'stop.........')
 
 
 #print(TaskCore.parse_exp('batch_name_1[ 3: ]'))

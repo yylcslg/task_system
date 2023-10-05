@@ -26,11 +26,12 @@ class JobProcess:
         template_name = job['template_name']
         rs = templateService.query_template_by_name(template_name)
         if len(rs) == 0:
-            print('template_name:',template_name, ' no record.......')
+            print('template_name:', template_name, ' no record.......')
             return
 
         template_dict = rs[0]
         template_accounts_exp = template_dict['accounts_exp_1'].split(';')
+        print('accounts_exp_1:', template_dict['accounts_exp_1'], '  size:', len(template_accounts_exp))
 
         num = 0
         for account_exp in template_accounts_exp:
@@ -41,17 +42,19 @@ class JobProcess:
 
     def single_process(self, job_dict, template_dict, account_exp):
         taskCore = TaskCore(job_dict, template_dict, account_exp)
-        JobProcess.job_instance_dict[job_dict['instance_id']] = (taskCore, 0)
+        instance_id = job_dict['instance_id']
+        JobProcess.job_instance_dict[instance_id] = (taskCore, 0)
         taskCore.run()
+        JobProcess.stop_job_instance(instance_id, 1)
 
 
-
-    def stop_job_instance(instance_id):
+    @staticmethod
+    def stop_job_instance(instance_id, status=2):
         if instance_id in JobProcess.job_instance_dict:
             (taskCore, num) = JobProcess.job_instance_dict[instance_id]
-            taskCore.stop()
+            taskCore.stop(status)
             del JobProcess.job_instance_dict[instance_id]
-            print('instance_id:', instance_id, ' remove.....')
+            print('instance_id:', instance_id, 'status[', status , '] remove.....')
 
     def job_instance_detail_log(self):
         lst =[]
@@ -69,18 +72,19 @@ class JobProcess:
 
                 if len(lst) >= 100:
                     start_time = DateUtils.get_timestamp()
-                    jobService.save_job_instance_detail(lst)
+                    #jobService.save_job_instance_detail(lst)
                     lst = []
 
                 j = logQueue.queue.get(timeout = 3) # 无数据等待3秒
                 if 'instance_id' in j and len(j['instance_id']) > 0 :
                     lst.append(j)
+
                 if 'tx_status' in j and j['tx_status'] == 2 and 'instance_id' in j:
                     (taskCore, num) = JobProcess.job_instance_dict[j['instance_id']]
                     time_num = num + 1
                     JobProcess.job_instance_dict[j['instance_id']] = (taskCore, time_num)
-                    if time_num > 3 :
-                        self.stop_job_instance(j['instance_id'])
+                    if time_num > 2 :
+                        JobProcess.stop_job_instance(j['instance_id'])
 
             except Exception as e:
                 pass

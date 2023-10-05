@@ -26,6 +26,9 @@ class JobInstanceDao:
 
         return mysqlPool.insertBatch(sql, lst)
 
+    def update_job_instance_status(self, instance_id, status):
+        sql = 'update j_job_instance set instance_status=' + str(status) + ' where instance_id = \'' + instance_id + '\''
+        return mysqlPool.exeSql(sql)
 
 
 jobInstanceDao = JobInstanceDao()

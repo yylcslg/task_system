@@ -47,9 +47,14 @@ def alienswap_process():
                       accounts_exp_1='test[0:1];tinc_wallet_1[:];tinc_wallet_2[:];tinc_wallet_3[:]',
                       accounts_exp_2='batch_name_1[0:1]')
 
+def modify_mailzero_process():
+    modify_template(dir_name='bnb', file_name='mailzero.py', template_name='mailzero',template_id=1)
+
+
 if __name__ == "__main__":
     #mailzero_process()
     #unemeta_process()
-    alienswap_process()
+    #alienswap_process()
+    modify_mailzero_process()
 
     print("finish...................")

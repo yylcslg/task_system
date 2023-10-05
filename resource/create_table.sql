@@ -93,7 +93,8 @@ CREATE TABLE `scheduler_db`.`j_job_instance` (
   `batch_name` VARCHAR(64) NULL,
   `batch_from` VARCHAR(64) NULL,
   `account_total` INT NULL,
-  `create_time` VARCHAR(45) NULL,
+  `create_time` BIGINT NULL,
+  `instance_status` INT NULL;
   PRIMARY KEY (`id`));
 
 

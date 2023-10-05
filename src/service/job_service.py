@@ -67,9 +67,15 @@ class JobService:
             lst.append(detail_dict)
         jobInstanceDetailDao.insert_job_instance_detail(lst)
 
+    def modify_instance_status(self, instance_id, status):
+        jobInstanceDao.update_job_instance_status(instance_id, status)
+
 
 
 jobService = JobService()
+
+if __name__ == '__main__':
+    jobService.modify_instance_status('job_1_20231005_092816_0',2)
 
 
 
