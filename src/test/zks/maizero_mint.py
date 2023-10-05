@@ -11,8 +11,13 @@ def mint(w:Web3Wrap, a):
     contract_address = '0xc94025c2eA9512857BD8E1e611aB9b773b769350'
 
     amount = float(w.get_balance(a.address, unit='ether'))
-
     print('address 1:', a.address, 'balance:', amount)
+    gas_gwei = w.w3.from_wei(940000, 'gwei')
+    tx_param = w.build_tx_param(a, contract_address, gas_gwei=gas_gwei, gas_price_gwei=0.25, data=data)
+    (tx_id, receipt, balance) = w.tx_by_param(a, tx_param)
+    print('receipt',receipt)
+    if (receipt['status'] == 0):
+        print('[address]:', a.address, ' fail......')
 
 
 
