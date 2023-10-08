@@ -1,3 +1,5 @@
+import socket
+
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3 import Retry
@@ -27,5 +29,16 @@ class HttpTools:
         session.mount("http://", HTTPAdapter(max_retries=retries))
         session.mount("https://", HTTPAdapter(max_retries=retries))
         return session
+
+    @staticmethod
+    def get_host_ip():
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(('8.8.8.8', 80))
+            ip = s.getsockname()[0]
+        finally:
+            s.close()
+
+        return ip
 
 

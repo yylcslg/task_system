@@ -51,9 +51,9 @@ def run_maizero_mint(dir_name, file_name):
 
 if __name__ == "__main__":
 
-    #run_unemeta('bnb', 'unemeta.py')
+    run_unemeta('bnb', 'unemeta.py')
     #run_mailzero('bnb', 'mailzero.py')
-    run_alienswap('linea', 'alienswap.py')
+    #run_alienswap('linea', 'alienswap.py')
 
     #run_maizero_mint('zks', 'maizero_mint.py')
 
