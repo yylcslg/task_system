@@ -15,3 +15,5 @@ if __name__ == '__main__':
 
 #git config --global http.proxy 'socks5://127.0.0.1:8889'
 #git config --global https.proxy 'socks5://127.0.0.1:8889'
+
+# python3 run_db.py

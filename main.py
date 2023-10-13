@@ -16,3 +16,13 @@ if __name__ == '__main__':
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
 # pip freeze > requirements.txt
+
+# pip install -r requirements.txt
+
+# pip install pyinstaller
+
+# pyinstaller -F run_db.py
+
+
+
+
