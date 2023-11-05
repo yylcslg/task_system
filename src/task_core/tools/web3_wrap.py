@@ -66,6 +66,9 @@ class Web3Wrap:
 
         return balance
 
+    def get_checksum_address(self, address):
+        return Web3.to_checksum_address(address)
+
     """
     num <0 则 获取最新 block信息
     """

@@ -5,25 +5,45 @@ from src.task_core.tools.block_chain import Block_chain
 from src.task_core.tools.web3_wrap import Web3Wrap
 from fake_useragent import UserAgent
 
-def signin(w, a1, invitation_code):
+
+def challenge(w, a1):
     ua = UserAgent()
     user_agent = ua.random
 
-    url = "https://alienswap.xyz/alien-api/api/v1/public/user/signin?network=eth"
+    url = "https://alienswap.xyz/alien-api/api/v1/public/user/sign/challenge?network=scroll"
+    headers = {
+        'Accept': 'application/json, text/plain, */*',
+        'User-Agent': user_agent
+    }
+
+    addr = w.get_checksum_address(a1.address)
+    payload = {
+        "address": addr,
+        "network": "scroll"
+    }
+    rsp = w.session.request(method='post', url=url, headers=headers, data=json.dumps(payload))
+    print('[challenge]status:', rsp.status_code, ' rsp:', rsp.content)
+
+    message = rsp.json()['data']['message']
+    return message
+
+def signin(w, a1, invitation_code, sign_text):
+    ua = UserAgent()
+    user_agent = ua.random
+
+    url = "https://alienswap.xyz/alien-api/api/v1/public/user/signin?network=scroll"
     headers = {
         'Accept': 'application/json, text/plain, */*',
         'User-Agent':user_agent
     }
-
-    sign_text = "Welcome to AlienSwap!\nClick to sign in and accept the AlienSwap Terms of Service.\nThis request will not trigger a blockchain transaction or cost any gas fees."
     sig = w.sign_data(a1, sign_text)
     payload = {
         "address": a1.address,
         "signature": sig,
-        "nonce": sign_text,
+        "message": sign_text,
         "inviter": invitation_code,
         "src": 4,
-        "network": "eth"
+        "network": "scroll"
     }
     rsp = w.session.request(method='post', url=url, headers=headers, data=json.dumps(payload))
     print('[signin]status:', rsp.status_code, ' rsp:', rsp.content)
@@ -33,7 +53,7 @@ def signin(w, a1, invitation_code):
 
 
 def twitter_box(w, a1, access_token):
-    url = 'https://alienswap.xyz/alien-api/api/v1/private/points/account/twitter/verify?network=eth'
+    url = 'https://alienswap.xyz/alien-api/api/v1/private/points/account/twitter/verify?network=scroll'
 
     headers = {
         'Accept': 'application/json, text/plain, */*',
@@ -43,7 +63,7 @@ def twitter_box(w, a1, access_token):
     }
     payload = {
         "address": a1.address,
-        "network": "eth"
+        "network": "scroll"
     }
     rsp = w.session.request(method='post', url=url, headers=headers, data=json.dumps(payload))
     print('[twitter_box]status:', rsp.status_code, ' rsp:', rsp.json())
@@ -60,7 +80,7 @@ def checkin(w, a1, access_token):
 
     payload = {
         "address": a1.address,
-        "network": "eth"
+        "network": "scroll"
     }
 
     #rsp = w.session.request(method='post', url=url, headers=headers, data=json.dumps(payload))
@@ -68,7 +88,7 @@ def checkin(w, a1, access_token):
 
     #if rsp.json()["data"]["checkin"] == 0:
     print('开始签到')
-    url = "https://alienswap.xyz/alien-api/api/v1/private/points/account/checkin/claim?network=eth"
+    url = "https://alienswap.xyz/alien-api/api/v1/private/points/account/checkin/claim?network=scroll"
     rsp = w.session.request(method='post', url=url, headers=headers, data=json.dumps(payload))
     print('[checkin]status:', rsp.status_code, ' rsp:', rsp.json())
 
@@ -130,9 +150,9 @@ def mint_2049_info(w, a1, access_token):
 
 a1 = account_1
 w = Web3Wrap.get_instance(block_chain=Block_chain.LINEA, gas_flag=False)
-
+message = challenge(w, a1)
 invitation_code = 'd3L9oT'
-accessToken = signin(w, a1, invitation_code)
+accessToken = signin(w, a1, invitation_code, message)
 #twitter_box(w, a1, accessToken)
 
 time.sleep(1)

@@ -36,7 +36,7 @@ def run_unemeta(dir_name, file_name):
 def run_alienswap(dir_name, file_name):
     template_txt = read_local_file(dir_name, file_name)
     accounts_exp_1 = 'test[:];tinc_wallet_1[:];tinc_wallet_2[:];tinc_wallet_3[:]'
-    #accounts_exp_1 = 'tinc_wallet_3[:]'
+    #accounts_exp_1 = 'test[0:1]'
     accounts_exp_2 = ''
     parallelism_num = 3
     TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
@@ -80,10 +80,10 @@ if __name__ == "__main__":
 
     #run_unemeta('bnb', 'unemeta.py')
     #run_mailzero('bnb', 'mailzero.py')
-    #run_alienswap('linea', 'alienswap.py')
+    run_alienswap('linea', 'alienswap.py')
 
     #run_maizero_mint('zks', 'maizero_mint.py', 1)
 
-    defi_run()
+    #defi_run()
 
     print("finish...................")
