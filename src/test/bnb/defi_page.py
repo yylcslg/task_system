@@ -69,6 +69,7 @@ if __name__ == '__main__':
 
         username = array[0]
         pwd = array[1].replace('\n', '')
+
         print('---['+str(num)+']----------username:',username,'pwd:',pwd)
         accessToken = sign_in(w, username, pwd)
         claim(w, accessToken)
