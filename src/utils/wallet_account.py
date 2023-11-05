@@ -79,6 +79,13 @@ class Wallet:
         return wallet_accounts
 
     @staticmethod
+    def read_wallet_line(file_name='', file_path_prefix='../../resource/'):
+        with open(file_path_prefix + file_name, 'r') as f:
+            lst = f.readlines()
+
+        return lst
+
+    @staticmethod
     def create_prefix_address(prefix = '0x0', num=100):
         lst = []
         Account.enable_unaudited_hdwallet_features()
