@@ -16,7 +16,7 @@ class Web3Wrap:
 
     def __init__(self, block_chain = Block_chain.LINEA_TEST,  proxy_ip = '127.0.0.1:8889', timeout = 120, gas_flag = True):
         local_ip = HttpTools.get_host_ip()
-        print(local_ip)
+        #print(local_ip)
 
         self.proxy_ip = proxy_ip
         self.proxies = HttpTools.build_proxy(proxy_ip)
