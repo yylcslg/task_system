@@ -81,6 +81,7 @@ if __name__ == "__main__":
     #run_mailzero('bnb', 'mailzero.py')
 
     #defi_run()
+
     #run_maizero_mint('zks', 'maizero_mint.py', 1)
 
     # run_alienswap('linea', 'alienswap.py')
