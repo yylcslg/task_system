@@ -58,7 +58,7 @@ def run_maizero_mint(dir_name, file_name, range_num = 1):
 def defi_run():
     w = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR)
 
-    records = Wallet.read_wallet_line(file_name='email.csv', file_path_prefix='../../resource/')[:25]
+    records = Wallet.read_wallet_line(file_name='email.csv', file_path_prefix='../../resource/')[:]
     num = 0
     for line in records:
         array = line.split(',')
@@ -67,9 +67,9 @@ def defi_run():
         print('--------------[' + str(num) + ']------------------------------------')
         print('username:', username, 'pwd:', pwd)
         accessToken = sign_in(w, username, pwd)
-        #claim(w, accessToken)
-        invite_code = get_user(w, accessToken)
-        print('invite_url', 'https://de.fi/claim/?invite=' + invite_code)
+        claim(w, accessToken)
+        #invite_code = get_user(w, accessToken)
+        #print('invite_url', 'https://de.fi/claim/?invite=' + invite_code)
         num = num + 1
 
 
@@ -77,15 +77,13 @@ def defi_run():
 
 if __name__ == "__main__":
 
-    #run_unemeta('bnb', 'unemeta.py')
-    #run_mailzero('bnb', 'mailzero.py')
+    run_unemeta('bnb', 'unemeta.py')
+    run_mailzero('bnb', 'mailzero.py')
 
-    #defi_run()
+    defi_run()
 
     #run_maizero_mint('zks', 'maizero_mint.py', 1)
 
-    # run_alienswap('linea', 'alienswap.py')
-
-
+    #run_alienswap('linea', 'alienswap.py')
 
     print("finish...................")

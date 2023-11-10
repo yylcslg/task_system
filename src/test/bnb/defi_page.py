@@ -20,7 +20,7 @@ def sign_in(w, username, pwd):
     }
 
     rsp = w.session.request(method='post', url=url, headers=headers, data=json.dumps(payload))
-    print('[sign_in]status:', rsp.status_code, ' rsp:', rsp.json())
+    #print('[sign_in]status:', rsp.status_code, ' rsp:', rsp.json())
     return rsp.json()['accessToken']
 
 
@@ -55,7 +55,7 @@ def get_user(w, access_token):
     url = 'https://api.de.fi/v1/users'
 
     rsp = w.session.request(method='get', url=url, headers=headers)
-    print('[get_user]status:', rsp.status_code, ' rsp:', rsp.json())
+    #print('[get_user]status:', rsp.status_code, ' rsp:', rsp.json())
     return rsp.json()['referralCode']
 
 
