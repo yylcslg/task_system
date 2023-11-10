@@ -59,10 +59,44 @@ def get_user(w, access_token):
     return rsp.json()['referralCode']
 
 
+
+def add_address(w, access_token, a):
+    ua = UserAgent()
+    user_agent = ua.random
+    headers = {
+        'User-Agent': user_agent,
+        'Origin': 'https://de.fi',
+        'Referer': 'https://de.fi/',
+        'Content-Type':'application/json',
+        'Authorization': 'Bearer ' + access_token
+    }
+
+    url ='https://api.de.fi/v1/users/wallets'
+
+    payload = {
+        "address": a.address
+    }
+
+    rsp = w.session.request(method='put', url=url, headers=headers, data=json.dumps(payload))
+    id = str(rsp.json()['id'])
+    msg = 'Please sign if you are owner of: '+a.address+'-' + id
+    sig = w.sign_data(a, msg)
+
+    payload = {
+        "wallet": a.address,
+        "signature": sig
+    }
+    url = 'https://api.de.fi/v1/users/wallets/validate'
+    rsp = w.session.request(method='post', url=url, headers=headers, data=json.dumps(payload))
+
+    print('[add_address]status:', rsp.status_code, ' rsp:',rsp.text)
+    pass
+
+
 if __name__ == '__main__':
     w = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR)
+    records = Wallet.read_wallet_line(file_name='email.csv', file_path_prefix='../../../resource/')[35:36]
 
-    records = Wallet.read_wallet_line(file_name='email.csv', file_path_prefix='../../../resource/')
     num = 0
     for line in records:
         array = line.split(',')
@@ -72,7 +106,10 @@ if __name__ == '__main__':
 
         print('---['+str(num)+']----------username:',username,'pwd:',pwd)
         accessToken = sign_in(w, username, pwd)
-        claim(w, accessToken)
-        invite_code = get_user(w, accessToken)
-        print('invite_url','https://de.fi/claim/?invite=' + invite_code)
+        #claim(w, accessToken)
+        a1 = Wallet.read_wallet_file('tinc_wallet_1.csv', file_path_prefix='../../../resource/')[:][18]
+        #add_address(w, accessToken,a1)
+        #invite_code = get_user(w, accessToken)
+        #print('invite_url','https://de.fi/claim/?invite=' + invite_code)
         num = num +1
+        break

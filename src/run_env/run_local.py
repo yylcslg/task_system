@@ -1,7 +1,7 @@
 from src.task_core.task_core_local import TaskCoreLocal
 from src.task_core.tools.block_chain import Block_chain
 from src.task_core.tools.web3_wrap import Web3Wrap
-from src.test.bnb.defi_page import sign_in, claim, get_user
+from src.test.bnb.defi_page import sign_in, claim, get_user, add_address
 from src.test.save_template_task import p
 from src.utils.tools import msg_encode
 from src.utils.wallet_account import Wallet
@@ -59,6 +59,11 @@ def defi_run():
     w = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR)
 
     records = Wallet.read_wallet_line(file_name='email.csv', file_path_prefix='../../resource/')[:]
+
+    #test_account = Wallet.read_test_wallet()
+    #tinc_account_1 = Wallet.read_wallet_file('tinc_wallet_1.csv')
+    #accounts = test_account + tinc_account_1
+
     num = 0
     for line in records:
         array = line.split(',')
@@ -67,7 +72,8 @@ def defi_run():
         print('--------------[' + str(num) + ']------------------------------------')
         print('username:', username, 'pwd:', pwd)
         accessToken = sign_in(w, username, pwd)
-        claim(w, accessToken)
+        #add_address(w, accessToken, accounts[num])
+        #claim(w, accessToken)
         #invite_code = get_user(w, accessToken)
         #print('invite_url', 'https://de.fi/claim/?invite=' + invite_code)
         num = num + 1
@@ -77,8 +83,8 @@ def defi_run():
 
 if __name__ == "__main__":
 
-    run_unemeta('bnb', 'unemeta.py')
-    run_mailzero('bnb', 'mailzero.py')
+    #run_unemeta('bnb', 'unemeta.py')
+    #run_mailzero('bnb', 'mailzero.py')
 
     defi_run()
 
