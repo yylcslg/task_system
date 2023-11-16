@@ -21,6 +21,7 @@ class Block_chain(Enum):
     SCROLL_TEST = ('https://scroll-alphanet.public.blastapi.io', 534353, 'pos')
     SCROLL_SEP_TEST = ('https://sepolia-rpc.scroll.io/', 534351, 'pos')
     SCROLL_SEP_ALPHA_TEST = ('https://alpha-rpc.scroll.io/l2', 534353, 'pos')
+    OKB_X1 = ('https://testrpc.x1.tech', 195, 'pos')
 
 
 
