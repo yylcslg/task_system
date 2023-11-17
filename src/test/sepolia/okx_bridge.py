@@ -6,9 +6,10 @@ def sep_echo_dispatch(w, a1, a2):
     amount1 = float(w.get_balance(a1.address, unit='ether'))
     amount2 = float(w.get_balance(a2.address, unit='ether'))
 
-    gas_gwei = w.w3.from_wei(29000, 'gwei')
-    if amount1< 0.1:
-        w.tx_amount(from_account=a2, to_address=a1.address, amount=0.1, gas_gwei=gas_gwei, gas_price_gwei=1)
+
+    #if amount1< 0.1:
+        #gas_gwei = w.w3.from_wei(29000, 'gwei')
+        #w.tx_amount(from_account=a2, to_address=a1.address, amount=0.1, gas_gwei=gas_gwei, gas_price_gwei=1)
     print('address:', a1.address, 'balance:', amount1, 'address2:', a2.address, 'balance:', amount2,)
 
 
@@ -60,7 +61,7 @@ def okb_bridge_x1_sep(w, a):
 
     data = '0xcd58657900000000000000000000000000000000000000000000000000000000000000000000000000000000000000007748e319e64c213917a7a2408ee4278f86875d580000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000000'
     new_data = data.replace(old_address, new_address)
-    tx_param = w.build_tx_param(a, contract_address, gas_gwei=gas_gwei, value_eth=1,gas_price_gwei=8, data=new_data)
+    tx_param = w.build_tx_param(a, contract_address, gas_gwei=gas_gwei, value_eth=1,gas_price_gwei=20, data=new_data)
 
     (tx_id, rsp, balance) = w.tx_by_param(a, tx_param)
     print('tx_id:', tx_id, 'rsp:', rsp['status'])
@@ -73,8 +74,8 @@ def okb_bridge_x1_sep(w, a):
 
 
 a1 = account_1
-
-#w = Web3Wrap.get_instance(block_chain=Block_chain.Sepolia, gas_flag=False)
+a2= account_2[0]
+w = Web3Wrap.get_instance(block_chain=Block_chain.Sepolia, gas_flag=False)
 x_w = Web3Wrap.get_instance(block_chain=Block_chain.OKB_X1, gas_flag=False)
 
 #mint_okb(w, a1)
@@ -82,4 +83,4 @@ x_w = Web3Wrap.get_instance(block_chain=Block_chain.OKB_X1, gas_flag=False)
 #okb_bridge_sep_x1(w, a1)
 
 okb_bridge_x1_sep(x_w, a1)
-sep_echo_dispatch(x_w, a1)
+#sep_echo_dispatch(x_w, a1, a2)
