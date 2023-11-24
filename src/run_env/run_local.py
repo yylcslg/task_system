@@ -98,17 +98,27 @@ def run_bnbi(dir_name, file_name, range_num = 1):
                             parallelism_num=parallelism_num, db_flag=False)
 
 
-if __name__ == "__main__":
+def run_poli(dir_name, file_name, range_num = 1):
+    template_txt = read_local_file(dir_name, file_name)
+    #accounts_exp_1 = 'test[:];tinc_wallet_1[:]'
+    accounts_exp_1 = 'test[0:1]'
+    accounts_exp_2 = 'test[0:1]'
+    parallelism_num = 5
+    TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
+                            parallelism_num=parallelism_num, db_flag=False)
 
+if __name__ == "__main__":
+    #run_defi()
     #run_unemeta('bnb', 'unemeta.py')
     #run_mailzero('bnb', 'mailzero.py')
-    #run_defi()
+
 
     #run_alienswap('linea', 'alienswap.py')
 
     #run_okx_bridge('sepolia', 'okx_bridge.py')
 
-    run_bnbi('bnb', 'bnbi.py')
+    #run_bnbi('bnb', 'bnbi.py')
+    run_poli('pol', 'poli.py')
 
+    #run_maizero_mint('zks', 'maizero_mint.py', 1)
     print("finish...................")
-    # run_maizero_mint('zks', 'maizero_mint.py', 1)
