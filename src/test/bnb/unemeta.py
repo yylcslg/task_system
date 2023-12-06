@@ -94,7 +94,7 @@ def verifiy_code_method(w, a1, accessToken, verifiy_code):
 
 
 a1 = account_1
-w = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, gas_flag=False)
+w = Web3Wrap.get_instance(block_chain=Block_chain.Sepolia, gas_flag=False)
 
 #nonce_json = nonce(w, a1)
 #resgister(w, a1, nonce_json)

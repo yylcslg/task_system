@@ -11,7 +11,7 @@ def mint_poli(w, a1):
     #42.54
     data = '0x646174613a2c7b2270223a227072632d3230222c226f70223a226d696e74222c227469636b223a22706f6c69222c22616d74223a2231303030227d'
     for i in range(1):
-        tx_param = w.build_tx_param(a1, contract_address, gas_gwei=gas_gwei, gas_price_gwei=5, data=data)
+        tx_param = w.build_tx_param(a1, contract_address, gas_gwei=gas_gwei, gas_price_gwei=510, data=data)
         (tx_id, rsp, balance) = w.tx_by_param(a1, tx_param)
         print('tx_id:', tx_id, 'rsp:', rsp['status'])
         sleep(1)

@@ -21,7 +21,7 @@ a1 = account_1
 job = job_dict
 proxy_ip_str = proxy_ip
 
-w = Web3Wrap.get_instance(block_chain=Block_chain.BSC_ANKR, proxy_ip=proxy_ip_str, gas_flag=False)
+w = Web3Wrap.get_instance(block_chain=Block_chain.Sepolia, proxy_ip=proxy_ip_str, gas_flag=False)
 #w = Web3Wrap(block_chain=Block_chain.BSC_ANKR, proxy_ip=proxy_ip_str, gas_flag=False)
 
 #queryDailyInfo(w, a1.address)
