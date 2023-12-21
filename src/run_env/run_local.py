@@ -57,9 +57,7 @@ def run_maizero_mint(dir_name, file_name, range_num = 1):
 
 def run_defi():
     w = Web3Wrap.get_instance(block_chain=Block_chain.Sepolia)
-
     records = Wallet.read_wallet_line(file_name='email.csv', file_path_prefix='../../resource/')[:]
-
     #test_account = Wallet.read_test_wallet()
     #tinc_account_1 = Wallet.read_wallet_file('tinc_wallet_1.csv')
     #accounts = test_account + tinc_account_1
@@ -133,6 +131,32 @@ def run_anteater(dir_name, file_name, range_num=1):
     TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
                             parallelism_num=parallelism_num, db_flag=False)
 
+
+def run_gors(dir_name, file_name, range_num=1):
+    template_txt = read_local_file(dir_name, file_name)
+    accounts_exp_1 = 'test[0:1]'
+    accounts_exp_2 = 'test[0:1]'
+    parallelism_num = 1
+    TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
+                            parallelism_num=parallelism_num, db_flag=False)
+
+def run_opbnbs(dir_name, file_name, range_num=1):
+    template_txt = read_local_file(dir_name, file_name)
+    accounts_exp_1 = 'test[0:1]'
+    accounts_exp_2 = 'test[0:1]'
+    parallelism_num = 1
+    TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
+                            parallelism_num=parallelism_num, db_flag=False)
+
+
+def run_voyage(dir_name, file_name, range_num=1):
+    template_txt = read_local_file(dir_name, file_name)
+    accounts_exp_1 = 'test[0:1]'
+    accounts_exp_2 = 'test[0:1]'
+    parallelism_num = 1
+    TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
+                            parallelism_num=parallelism_num, db_flag=False)
+
 if __name__ == "__main__":
     #run_defi()
     #run_unemeta('bnb', 'unemeta.py')
@@ -150,5 +174,9 @@ if __name__ == "__main__":
     #run_ipol('pol', 'ipol.py')
     #run_maizero_mint('zks', 'maizero_mint.py', 1)
 
-    run_anteater('pol', 'anteater.py')
+    #run_anteater('pol', 'anteater.py')
+    #run_gors('goerli', 'gors.py')
+
+    #run_opbnbs('opbnb', 'opbnbs.py')
+    #run_voyage('linea', 'voyage.py')
     print("finish...................")

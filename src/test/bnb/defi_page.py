@@ -4,10 +4,10 @@ from src.task_core.tools.block_chain import Block_chain
 from src.task_core.tools.web3_wrap import Web3Wrap
 from src.utils.wallet_account import Wallet
 
+user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
 
 def sign_in(w, username, pwd):
-    ua = UserAgent()
-    user_agent = ua.random
+
     headers = {
         'Content-Type': 'application/json; charset=utf-8',
         'User-Agent': user_agent
@@ -18,15 +18,13 @@ def sign_in(w, username, pwd):
         "emailOrUsername": username,
         "password": pwd
     }
-
     rsp = w.session.request(method='post', url=url, headers=headers, data=json.dumps(payload))
     #print('[sign_in]status:', rsp.status_code, ' rsp:', rsp.json())
     return rsp.json()['accessToken']
 
 
 def claim(w, access_token):
-    ua = UserAgent()
-    user_agent = ua.random
+
     headers = {
         'User-Agent': user_agent,
         'Origin':'https://de.fi',

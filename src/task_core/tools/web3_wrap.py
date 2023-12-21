@@ -28,7 +28,7 @@ class Web3Wrap:
             self.w3 = Web3(Web3.HTTPProvider(block_chain.url, session=self.session))
 
         self.timeout = timeout
-        self.chainid = self.w3.eth.chainId
+        self.chainid = self.w3.eth.chain_id
         self.gas_flag = gas_flag
 
         if gas_flag:
@@ -92,14 +92,14 @@ class Web3Wrap:
         if self.gas_flag :
             return self.w3.from_wei(self.w3.eth.generateGasPrice().real, unit)
         else :
-            return self.w3.from_wei(self.w3.eth.gasPrice, unit)
+            return self.w3.from_wei(self.w3.eth.gas_price, unit)
 
 
     def get_estimate_gas(self, tx_params , unit = 'wei'):
         gas_estimate = self.w3.eth.estimate_gas(tx_params)
 
         # 获取预估gas价格
-        gas_price = self.w3.eth.gasPrice
+        gas_price = self.w3.eth.gas_price
         gas_fee = gas_estimate * gas_price
         eth_fee = self.w3.fromWei(gas_fee, unit)
         return eth_fee
