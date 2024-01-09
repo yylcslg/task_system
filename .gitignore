@@ -1,3 +1,6 @@
 # created by virtualenv automatically
 *.csv
 *.xml
+myenv/bin
+lib64/
+.idea
