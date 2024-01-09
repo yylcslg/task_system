@@ -68,7 +68,7 @@ def run_defi():
         username = array[0]
         pwd = array[1].replace('\n', '')
         print('--------------[' + str(num) + ']------------------------------------')
-        print('username:', username, 'pwd:', pwd)
+        print('username:', username, 'pwd:...')
         accessToken = sign_in(w, username, pwd)
         #add_address(w, accessToken, accounts[num])
         claim(w, accessToken)
@@ -158,12 +158,12 @@ def run_voyage(dir_name, file_name, range_num=1):
                             parallelism_num=parallelism_num, db_flag=False)
 
 if __name__ == "__main__":
-    #run_defi()
-    #run_unemeta('bnb', 'unemeta.py')
-    #run_mailzero('bnb', 'mailzero.py')
+    run_defi()
+    run_unemeta('bnb', 'unemeta.py')
+    run_mailzero('bnb', 'mailzero.py')
 
 
-    #run_alienswap('linea', 'alienswap.py')
+    run_alienswap('linea', 'alienswap.py')
 
     #run_okx_bridge('sepolia', 'okx_bridge.py')
 
