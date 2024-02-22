@@ -24,7 +24,7 @@ sudo systemctl start docker
 
 
 # 根据dockerfile 生成 image
- sudo docker build -t abc:v1 .
+ sudo docker build -t task_system:v1 .
 
 #查看image
  sudo docker images
