@@ -25,6 +25,8 @@ class Block_chain(Enum):
     SCROLL_SEP_ALPHA_TEST = ('https://alpha-rpc.scroll.io/l2', 534353, 'pos')
     OKB_X1 = ('https://testrpc.x1.tech', 195, 'pos')
 
+    TAIKO_TEST = ('https://rpc.katla.taiko.xyz', 167008, 'pos')
+
 
 
     def __init__(self, url, chain_id, middleware, apiKey=''):

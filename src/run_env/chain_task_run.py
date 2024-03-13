@@ -15,15 +15,18 @@ def read_local_file(dir_name, file_name):
 
 
 
-def run_ants(dir_name, file_name, range_num = 1):
+def run_taiko(dir_name, file_name, range_num = 1):
     template_txt = read_local_file(dir_name, file_name)
     #accounts_exp_1 = 'test[:];tinc_wallet_1[:]'
-    accounts_exp_1 = 'test[1:2]'
-    accounts_exp_2 = 'test[1:2]'
+    accounts_exp_1 = 'test[:10]'
+    accounts_exp_2 = 'test[:10]'
     parallelism_num = 5
     TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
                             parallelism_num=parallelism_num, db_flag=False)
 
 if __name__ == "__main__":
-    run_ants('pol', 'ants.py')
+
+
+
+    run_taiko('taiko', 'taiko_test.py')
     print("finish...................")
