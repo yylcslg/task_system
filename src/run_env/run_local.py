@@ -175,12 +175,52 @@ def run_starry(dir_name, file_name, range_num=1):
     TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
                             parallelism_num=parallelism_num, db_flag=False)
 
-if __name__ == "__main__":
-    run_starry('bnb', 'starry.py')
-    run_defi()
+def run_send_zeta(dir_name, file_name, range_num=1):
+    template_txt = read_local_file(dir_name, file_name)
 
-    run_mailzero('bnb', 'mailzero.py')
-    run_alienswap('linea', 'alienswap.py')
+    num =0
+    gap = 2
+    parallelism_num = 1
+
+    for i in range(range_num):
+        accounts_exp_1 = 'test[' + str(num) + ':' + str(num + 1) + ']'
+        accounts_exp_2 = 'test['+str(num+1)+':'+str(num+2)+']'
+        num = num + gap
+
+        TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
+                                parallelism_num=parallelism_num, db_flag=False)
+
+    pass
+
+
+def run_zeta_task_1(dir_name, file_name, range_num=1):
+    template_txt = read_local_file(dir_name, file_name)
+    accounts_exp_1 = 'test[1:10]'
+    accounts_exp_2 = 'test[9:10]'
+    parallelism_num = 1
+    TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
+                            parallelism_num=parallelism_num, db_flag=False)
+
+    pass
+
+
+def run_zeta():
+    #run_send_zeta('zeta', 'send_zeta.py', 5)
+    run_zeta_task_1('zeta', 'zeta_task_1.py')
+
+
+
+
+if __name__ == "__main__":
+    run_zeta()
+
+    #run_starry('bnb', 'starry.py')
+    #run_defi()
+
+    #run_mailzero('bnb', 'mailzero.py')
+
+
+    #run_alienswap('linea', 'alienswap.py')
 
     #run_unemeta('bnb', 'unemeta.py')
     #run_web3go('bnb','web3go.py')

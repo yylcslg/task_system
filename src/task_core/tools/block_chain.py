@@ -11,6 +11,8 @@ class Block_chain(Enum):
     POLYGON = ('https://polygon-mainnet.infura.io/v3/a4c5b4ef4d704823980c3349f3b99d18', 137, 'pos', 'pos')
     OPTIMISM = ('https://opt-mainnet.g.alchemy.com/v2/ortzM6D1U0ATdXD0WkjCLmXkNs5vdaSD', 10, 'pos')
 
+    ZETA = ('https://zetachain-evm.blockpi.network/v1/rpc/public', 7000, 'pos')
+
     #####test
     #'https://goerli.infura.io/v3/5d843434cf044d7a92cc987b26819d3c'
     GOERLI_TEST = ('https://rpc.ankr.com/eth_goerli', 5, 'poa')

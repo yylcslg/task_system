@@ -8,11 +8,11 @@ from src.utils.wallet_account import Wallet
 def process():
     w = Web3Wrap(block_chain=Block_chain.TAIKO_TEST, gas_flag=False)
 
-    dispatch_tx(w)
+    #dispatch_tx(w)
     #mint_taiko_entry_pass(w)
     #mint_taiko_blazpay(w)
 
-    #setApprovalForAll(w)
+    setApprovalForAll(w)
 
 
 def dispatch_tx(w:Web3Wrap):
@@ -52,19 +52,21 @@ def mint_taiko_entry_pass(w:Web3Wrap):
 
 
 def mint_taiko_blazpay(w:Web3Wrap):
-    print('--------------------------mint_taiko_blazpay-------------------------------------------')
+    print('----------------------------mint_taiko_blazpay-------------------------------------------')
     other_account = Wallet.read_wallet_file('tinc_wallet_1.csv',file_path_prefix='../../../resource/')
 
     contract_address = '0xedd0dDaEdbc3FBf67aC4ff2ee14Ace669821eac1'  # 合约地址
 
     gas_gwei = w.w3.from_wei(320000, 'gwei')
     gas_price_gwei = 0.000000004
+    num = 0
     for a in other_account:
+        num = num +1
         try:
             data = '0x40d097c3' + w.hex_zfill(a.address).lower()
             tx_param = w.build_tx_param(a, contract_address, gas_gwei=gas_gwei, gas_price_gwei=gas_price_gwei,data=data)
             (tx_id, rsp, balance) = w.tx_by_param(a, tx_param)
-            print('tx_id:', tx_id, 'rsp:', rsp['status'])
+            print('num:',num,'tx_id:', tx_id, 'rsp:', rsp['status'])
         except Exception as e:
             sleep(3)
             print('发生错误：{0}'.format(e))
