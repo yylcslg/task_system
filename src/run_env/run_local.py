@@ -212,7 +212,7 @@ def run_zeta():
 
 
 if __name__ == "__main__":
-    run_zeta()
+    #run_zeta()
 
     #run_starry('bnb', 'starry.py')
     #run_defi()
