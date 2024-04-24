@@ -17,6 +17,13 @@ def echo_zeta_balance(w, a1, a2):
 
 
 
+def print_zeta_balance(w, a1, a2):
+    amount1 = float(w.get_balance(a1.address, unit='ether'))  # zeta
+    amount2 = float(w.get_balance(a2.address, unit='ether'))  # zeta
+
+    print('address:', a1.address, ' amount:', amount1)
+    print('address:', a2.address, ' amount:', amount2)
+
 
 
 a1 = account_1
@@ -25,3 +32,5 @@ a2 = account_2[0]
 w = Web3Wrap(block_chain=Block_chain.ZETA, gas_flag=False)
 
 echo_zeta_balance(w, a1, a2)
+
+print_zeta_balance(w, a1, a2)

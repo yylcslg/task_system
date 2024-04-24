@@ -195,7 +195,7 @@ def run_send_zeta(dir_name, file_name, range_num=1):
 
 def run_zeta_task_1(dir_name, file_name, range_num=1):
     template_txt = read_local_file(dir_name, file_name)
-    accounts_exp_1 = 'test[1:10]'
+    accounts_exp_1 = 'test[0:10]'
     accounts_exp_2 = 'test[9:10]'
     parallelism_num = 1
     TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
@@ -214,10 +214,10 @@ def run_zeta():
 if __name__ == "__main__":
     #run_zeta()
 
-    #run_starry('bnb', 'starry.py')
-    #run_defi()
+    run_starry('bnb', 'starry.py')
+    run_defi()
 
-    #run_mailzero('bnb', 'mailzero.py')
+    run_mailzero('bnb', 'mailzero.py')
 
 
     #run_alienswap('linea', 'alienswap.py')

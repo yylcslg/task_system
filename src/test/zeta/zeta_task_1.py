@@ -10,7 +10,7 @@ def eddy_fiance_swap(w, a):
     gas_price_gwei = 16
 
     data = '0x148e6bcc0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000020000000000000000000000005f0b1a82749cb4e2278ec87f8bf6b618dc71a8bf00000000000000000000000048f80608b672dc30dc7e3dbbd0343c5f02c738eb'
-    tx_param = w.build_tx_param(a, contract_address, gas_gwei=gas_gwei, gas_price_gwei=gas_price_gwei, data=data, value_eth = 1.2)
+    tx_param = w.build_tx_param(a, contract_address, gas_gwei=gas_gwei, gas_price_gwei=gas_price_gwei, data=data, value_eth = 2)
     (tx_id, rsp, balance) = w.tx_by_param(a, tx_param)
     print('tx_id:', tx_id, 'rsp:', rsp['status'])
 
