@@ -5,9 +5,9 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 
 
-
+#https://www.69shuba.pro/txt/47113/31439537
 def testChrome(d, num,book_id):
-    url_prefix = 'https://www.xiaoshubao.net/read/'+book_id+'/@@@.html'
+    url_prefix = 'https://www.69shuba.pro/txt/'+book_id+'/@@@.html'
     url = url_prefix.replace('@@@',num)
 
     next_url,title, msg = sub_content(url)
@@ -52,7 +52,7 @@ def sub_content(url):
 #https://www.xiaoshubao.net
 if __name__ == "__main__":
     #book_id= '456816'
-    book_id = '423425'
-    with open('xianre.txt', "a") as d:
-        for i in range(1,269):
+    book_id = '47113'
+    with open('lvshi.txt', "a") as d:
+        for i in range(31439535,31449535):
             testChrome(d, str(i),book_id)

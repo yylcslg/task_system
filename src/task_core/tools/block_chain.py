@@ -17,7 +17,9 @@ class Block_chain(Enum):
     #'https://goerli.infura.io/v3/5d843434cf044d7a92cc987b26819d3c'
     GOERLI_TEST = ('https://rpc.ankr.com/eth_goerli', 5, 'poa')
     #Sepolia = ('https://rpc.sepolia.org/', 11155111, 'pos')
-    Sepolia = ('https://eth-sepolia.g.alchemy.com/v2/EyV7ENP2A1ThkoaSun3d7tooPkFll2JK', 11155111, 'pos')
+    Sepolia = ('https://eth-sepolia.g.alchemy.com/v2/EyV7ENP2A1ThkoaSun3d7tooPkFll2JK', 1513, 'pos')
+    Story = ('https://testnet.storyrpc.io', 11155111, 'pos')
+    Plume = ('https://testnet-rpc.plumenetwork.xyz/http', 161221135, 'pos')
     BSC_TEST = ('https://endpoints.omniatech.io/v1/bsc/testnet/public/', 97, 'pos')
 
     LINEA_TEST = ('https://rpc.goerli.linea.build/', 59140, 'poa')

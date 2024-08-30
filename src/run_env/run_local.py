@@ -9,18 +9,14 @@ from src.utils.wallet_account import Wallet
 
 def read_local_file(dir_name, file_name):
     with open(p +dir_name+'/'+ file_name) as f:
+        #print(f.read())
         template_txt = msg_encode(f.read())
+
+
     return template_txt
 
 
-def run_mailzero(dir_name, file_name):
-    template_txt = read_local_file(dir_name, file_name)
-    accounts_exp_1 = 'test[:];tinc_wallet_1[:];tinc_wallet_2[:];tinc_wallet_3[:]'
-    #accounts_exp_1 = 'test[0:1]'
-    accounts_exp_2 = ''
-    parallelism_num = 10
-    TaskCoreLocal.local_run(template_txt, accounts_exp_1= accounts_exp_1, accounts_exp_2 = accounts_exp_2,
-                            parallelism_num = parallelism_num, db_flag= False)
+
 
 
 def run_unemeta(dir_name, file_name):
@@ -205,20 +201,53 @@ def run_zeta_task_1(dir_name, file_name, range_num=1):
 
 
 def run_zeta():
-    #run_send_zeta('zeta', 'send_zeta.py', 5)
-    run_zeta_task_1('zeta', 'zeta_task_1.py')
+    run_send_zeta('zeta', 'send_zeta.py', 5)
+    #run_zeta_task_1('zeta', 'zeta_task_1.py')
+    pass
 
+def run_mailzero(dir_name, file_name):
+    template_txt = read_local_file(dir_name, file_name)
+    accounts_exp_1 = 'test[:];tinc_wallet_1[:];tinc_wallet_2[:];tinc_wallet_3[:]'
+    #accounts_exp_1 = 'tinc_wallet_3[10:]'
+    accounts_exp_2 = ''
+    parallelism_num = 10
+    TaskCoreLocal.local_run(template_txt, accounts_exp_1= accounts_exp_1, accounts_exp_2 = accounts_exp_2,
+                            parallelism_num = parallelism_num, db_flag= False)
 
+def run_fractal_faucet(dir_name, file_name, range_num=1):
+    template_txt = read_local_file(dir_name, file_name)
+    accounts_exp_1 = 'test[:];tinc_wallet_1[:];tinc_wallet_2[:];tinc_wallet_3[:];tinc_wallet_4[:];tinc_wallet_5[:]'
+    #accounts_exp_1 = 'tinc_wallet_3[120:];tinc_wallet_4[:];tinc_wallet_5[:]'
+
+    accounts_exp_2 = 'test[0:1]'
+    parallelism_num = 2
+    TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
+                            parallelism_num=parallelism_num, db_flag=False)
+
+def run_plume_checkin(dir_name, file_name, range_num=1):
+    template_txt = read_local_file(dir_name, file_name)
+    #accounts_exp_1 = 'tinc_wallet_1[:]'
+    accounts_exp_1 = 'test[:];tinc_wallet_1[:]'
+    accounts_exp_2 = 'test[0:1]'
+    parallelism_num = 5
+    TaskCoreLocal.local_run(template_txt, accounts_exp_1=accounts_exp_1, accounts_exp_2=accounts_exp_2,
+                            parallelism_num=parallelism_num, db_flag=False)
 
 
 if __name__ == "__main__":
-    #run_zeta()
 
-    run_starry('bnb', 'starry.py')
+
+    run_plume_checkin('plume', 'checkin.py')
+    run_fractal_faucet('fractal', 'faucet.py')
+    run_mailzero('bnb', 'mailzero.py')
     run_defi()
 
-    run_mailzero('bnb', 'mailzero.py')
 
+
+    #
+
+
+    # run_starry('bnb', 'starry.py')
 
     #run_alienswap('linea', 'alienswap.py')
 
@@ -239,4 +268,5 @@ if __name__ == "__main__":
 
     #run_opbnbs('opbnb', 'opbnbs.py')
     #run_voyage('linea', 'voyage.py')
+    # run_zeta()
     print("finish...................")
